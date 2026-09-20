@@ -72,13 +72,13 @@ export function AnalyticsCards({ headline, kind, storeCount, days }: Props) {
       >
         <p className="summary-card__label">Faltas</p>
         <p className="summary-card__value">{headline.totalAbsences}</p>
-        <DeltaNote delta={headline.absencesDelta} />
+        <DeltaNote delta={headline.absencesDelta} metric="absences" />
       </article>
 
       <article className="summary-card summary-card--neutral">
         <p className="summary-card__label">Folgas</p>
         <p className="summary-card__value">{headline.totalDayOffs}</p>
-        <DeltaNote delta={headline.dayOffsDelta} />
+        <DeltaNote delta={headline.dayOffsDelta} metric="dayOffs" />
       </article>
 
       {/*
