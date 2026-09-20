@@ -8,6 +8,7 @@ import { NetworkTable } from '@/components/NetworkTable';
 import { SearchField } from '@/components/SearchField';
 import { useNetworkDay } from '@/hooks/useNetworkDay';
 import { NETWORK_FILTERS, NETWORK_FILTER_LABEL } from '@/lib/constants';
+import { formatBrTime } from '@/utils/date';
 
 interface Props {
   /** Perfil da sessão — define o alcance da tela. Vem do banco, não da URL. */
@@ -41,6 +42,7 @@ export function SupervisorConferencesPage({ profile, onBack, initialDate }: Prop
   const {
     referenceDate,
     summary,
+    submittedRows,
     rows,
     totalRows,
     loading,
@@ -107,6 +109,45 @@ export function SupervisorConferencesPage({ profile, onBack, initialDate }: Prop
           )}
 
           {summary && <NetworkSummaryCards summary={summary} />}
+
+          <section className="submitted-stores" aria-label="Lojas que já enviaram a conferência">
+            <div className="submitted-stores__head">
+              <div>
+                <p className="submitted-stores__eyebrow">Envios confirmados</p>
+                <h3 className="submitted-stores__title">Lojas que já enviaram</h3>
+              </div>
+              <strong className="submitted-stores__count">
+                {submittedRows.length} de {totalRows}
+              </strong>
+            </div>
+
+            {submittedRows.length === 0 ? (
+              <p className="submitted-stores__empty">
+                Nenhuma loja enviou a conferência desta data ainda.
+              </p>
+            ) : (
+              <div className="submitted-stores__list">
+                {submittedRows.map((row) => (
+                  <button
+                    key={row.storeId}
+                    type="button"
+                    className="submitted-stores__item"
+                    onClick={() => openDetail(row.storeId)}
+                    aria-label={`Ver conferência enviada por ${row.storeName}`}
+                  >
+                    <span className="submitted-stores__dot" aria-hidden="true" />
+                    <span className="submitted-stores__identity">
+                      <strong>{row.storeName}</strong>
+                      <small>Cód. {row.storeCode}</small>
+                    </span>
+                    <span className="submitted-stores__time">
+                      {formatBrTime(row.submittedAt)}
+                    </span>
+                  </button>
+                ))}
+              </div>
+            )}
+          </section>
 
           <div className="network-toolbar">
             {/*
