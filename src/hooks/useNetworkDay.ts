@@ -94,6 +94,18 @@ export function useNetworkDay(profile: SessionProfile, initialDate: string = get
     [day, districtRows],
   );
 
+  /**
+   * Lojas que já ENVIARAM no distrito/escopo atual.
+   * Independe dos chips e da busca para funcionar como uma visão rápida do dia.
+   */
+  const submittedRows = useMemo(
+    () =>
+      districtRows
+        .filter((row) => row.status === 'SUBMITTED')
+        .sort((a, b) => a.storeName.localeCompare(b.storeName, 'pt-BR')),
+    [districtRows],
+  );
+
   /** Opções do seletor: saem das lojas que chegaram, nunca de uma lista fixa. */
   const districts = useMemo(
     () => (day ? buildDistrictOptions(day.raw.stores) : []),
@@ -108,6 +120,8 @@ export function useNetworkDay(profile: SessionProfile, initialDate: string = get
   return {
     referenceDate,
     summary,
+    /** Já enviadas no escopo atual, sem depender do filtro/busca da lista. */
+    submittedRows,
     /** Já filtradas, buscadas e ordenadas. */
     rows,
     /** Lojas do distrito atual antes do filtro — base da lista vazia. */
