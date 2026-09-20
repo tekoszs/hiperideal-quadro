@@ -118,8 +118,16 @@ export function FocusDrawer({
           ) : (
             <>
               {/* ------------------------------------------------- as lojas */}
-              <section className="panel">
-                <h4 className="panel__title">Lojas impactadas</h4>
+              <section className="panel focus-stores-panel">
+                <div className="focus-stores-panel__head">
+                  <div>
+                    <p className="focus-stores-panel__eyebrow">Onde está acontecendo</p>
+                    <h4 className="panel__title">Lojas impactadas</h4>
+                  </div>
+                  <span className="focus-stores-panel__badge">
+                    {analysis.storesAffected} {analysis.storesAffected === 1 ? 'loja' : 'lojas'}
+                  </span>
+                </div>
                 <div className="focus-table__scroll">
                   <table className="focus-table">
                     <thead>
@@ -165,7 +173,9 @@ export function FocusDrawer({
                     </tbody>
                   </table>
                 </div>
-                <p className="panel__hint">Toque numa loja para ver o dia a dia dela.</p>
+                <p className="focus-stores-panel__hint">
+                  Clique em uma loja para abrir faltas, funções, motivos e ocorrências do período.
+                </p>
               </section>
 
               {/* --------------------------------------------- os motivos */}

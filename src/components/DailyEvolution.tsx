@@ -88,7 +88,11 @@ export function DailyEvolution({ daily }: Props) {
     return sum / visibleDays.length;
   }, [visibleDays, serie]);
 
-  const averagePercent = maxValue > 0 ? Math.min(100, (average / maxValue) * 100) : 0;
+  // O plot tem 160 px úteis abaixo da margem superior de 18 px.
+  // A linha usa pixels para continuar alinhada às barras mesmo com os rótulos
+  // dos dias dentro da própria coluna.
+  const averageTopPx =
+    maxValue > 0 ? 18 + (1 - Math.min(1, average / maxValue)) * 160 : 178;
 
   const stats = useMemo(() => {
     const values = visibleDays.map((p) => (serie === 'absences' ? p.absences : p.dayOffs));
@@ -172,7 +176,7 @@ export function DailyEvolution({ daily }: Props) {
               {maxValue > 0 && (
                 <div
                   className="evolution__avg-line"
-                  style={{ bottom: `${averagePercent}%` }}
+                  style={{ top: `${averageTopPx}px` }}
                   title={`Média diária: ${decimal(average)}`}
                   aria-hidden="true"
                 >
@@ -181,7 +185,7 @@ export function DailyEvolution({ daily }: Props) {
               )}
 
               <div className="evolution__columns">
-                {visibleDays.map((point) => {
+                {visibleDays.map((point, index) => {
                   const value = serie === 'absences' ? point.absences : point.dayOffs;
                   const heightPercent = maxValue > 0 ? (value / maxValue) * 100 : 0;
                   const weekend = isWeekend(point.date);
@@ -202,44 +206,36 @@ export function DailyEvolution({ daily }: Props) {
                           <div className="evolution__gap">
                             <span>—</span>
                           </div>
-                        ) : (
+                        ) : value === 0 ? (
                           <>
-                            {value === 0 ? (
-                              <>
-                                <span className="evolution__zero-value">0</span>
-                                <span className="evolution__zero-marker" aria-hidden="true" />
-                              </>
-                            ) : (
-                              <div
-                                className={[
-                                  'evolution__bar',
-                                  serie === 'absences'
-                                    ? 'evolution__bar--danger'
-                                    : 'evolution__bar--brand',
-                                  point.state === 'PARTIAL' ? 'evolution__bar--partial' : '',
-                                ]
-                                  .filter(Boolean)
-                                  .join(' ')}
-                                style={{ height: `${heightPercent}%` }}
-                              >
-                                <span className="evolution__bar-value">{value}</span>
-                              </div>
-                            )}
+                            <span className="evolution__zero-value">0</span>
+                            <span className="evolution__zero-marker" aria-hidden="true" />
                           </>
+                        ) : (
+                          <div
+                            className={[
+                              'evolution__bar',
+                              serie === 'absences'
+                                ? 'evolution__bar--danger'
+                                : 'evolution__bar--brand',
+                              point.state === 'PARTIAL' ? 'evolution__bar--partial' : '',
+                            ]
+                              .filter(Boolean)
+                              .join(' ')}
+                            style={{ height: `${heightPercent}%` }}
+                          >
+                            <span className="evolution__bar-value">{value}</span>
+                          </div>
                         )}
                       </div>
+
+                      <span className="evolution__day-label" aria-hidden="true">
+                        {dayTick(point.date, index, visibleDays.length)}
+                      </span>
                     </div>
                   );
                 })}
               </div>
-            </div>
-
-            <div className="evolution__labels" aria-hidden="true">
-              {visibleDays.map((point, index) => (
-                <span key={point.date} className="evolution__day-label">
-                  {dayTick(point.date, index, visibleDays.length)}
-                </span>
-              ))}
             </div>
           </div>
 

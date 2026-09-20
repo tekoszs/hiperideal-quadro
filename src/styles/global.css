@@ -5665,3 +5665,174 @@ button.ranking__button:hover {
     min-width: 500px;
   }
 }
+
+
+/* ================= AJUSTES DETALHES/GRAFICO 20/09/2026 ================= */
+
+/* O corpo do drawer é um flex column rolável. Sem este ajuste, os painéis
+   internos encolhem para caber na altura e o conteúdo fica visualmente oculto. */
+.drawer__body {
+  min-height: 0;
+}
+
+.drawer__body > * {
+  flex-shrink: 0;
+}
+
+.drawer__body > .panel {
+  flex: 0 0 auto;
+}
+
+/* Lojas impactadas: mais destaque e leitura imediata. */
+.focus-stores-panel {
+  border-left: 4px solid var(--hi-green-600);
+  box-shadow: var(--hi-shadow-card);
+}
+
+.focus-stores-panel__head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--hi-space-3);
+  margin-bottom: 8px;
+}
+
+.focus-stores-panel__eyebrow {
+  margin: 0 0 3px;
+  color: var(--hi-green-700);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.focus-stores-panel__badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 64px;
+  padding: 5px 10px;
+  border: 1px solid var(--hi-green-200);
+  border-radius: 999px;
+  background: var(--hi-green-50);
+  color: var(--hi-green-700);
+  font-size: 11px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.focus-stores-panel .focus-table {
+  font-size: 13.5px;
+}
+
+.focus-stores-panel .focus-table tbody tr {
+  transition: background var(--hi-transition-fast);
+}
+
+.focus-stores-panel .focus-table tbody tr:hover {
+  background: var(--hi-green-50);
+}
+
+.focus-stores-panel .focus-table__store {
+  gap: 8px;
+}
+
+.focus-stores-panel .focus-table__code {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 34px;
+  padding: 2px 6px;
+  border-radius: 999px;
+  background: var(--hi-surface-alt);
+  color: var(--hi-text-soft);
+  font-size: 10.5px;
+  font-weight: 700;
+}
+
+.focus-stores-panel .focus-table__name {
+  color: var(--hi-green-700);
+  font-weight: 800;
+}
+
+.focus-stores-panel__hint {
+  margin: 9px 0 0;
+  padding-top: 8px;
+  border-top: 1px solid var(--hi-border);
+  color: var(--hi-text-muted);
+  font-size: 11.5px;
+}
+
+/* Garante que gráficos e rankings do detalhe da loja não sejam comprimidos. */
+.drawer__body .bars,
+.drawer__body .ranking,
+.drawer__body .day-list,
+.drawer__body .conf-list {
+  flex-shrink: 0;
+}
+
+/* Evolução diária: cada rótulo agora pertence à mesma coluna da barra.
+   Isso elimina o deslocamento horizontal entre gráfico e dia. */
+.evolution__bars-area {
+  height: 208px;
+}
+
+.evolution__columns {
+  padding: 18px 8px 0;
+}
+
+.evolution__col {
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.evolution__track {
+  flex: 0 0 160px;
+  height: 160px;
+}
+
+.evolution__day-label {
+  flex: 0 0 26px;
+  width: 100%;
+  min-width: 0;
+  padding-top: 7px;
+  text-align: center;
+  color: var(--hi-text-soft);
+  font-size: 9.5px;
+  font-weight: 700;
+  text-transform: capitalize;
+  white-space: nowrap;
+}
+
+.evolution__grid-line--top {
+  top: 18px;
+}
+
+.evolution__grid-line--middle {
+  top: 98px;
+}
+
+.evolution__grid-line--bottom {
+  top: 178px;
+  bottom: auto;
+}
+
+.evolution__avg-line {
+  bottom: auto;
+}
+
+.evolution__labels {
+  display: none;
+}
+
+@media (max-width: 720px) {
+  .focus-stores-panel__head {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .focus-stores-panel__badge {
+    align-self: flex-start;
+  }
+}
