@@ -338,16 +338,33 @@ export function SupervisorNetworkDashboardPage({ profile, onBack, onOpenConferen
                 <ul className="group-list">
                   {analytics.functionGroups.map((group) => {
                     const aberto = grupoAberto === group.functionGroup;
-                    // Só abre quando o grupo tem mais de uma função dentro.
+                    // Grupos com mais de uma função expandem para mostrar as funções.
+                    // Grupos de função única abrem direto o detalhamento com lojas,
+                    // faltas, folgas e motivos — o clique no nome nunca fica inativo.
                     const temDetalhe = group.positions.length > 1;
                     return (
                       <li key={group.functionGroup} className="group-list__item">
                         <button
                           type="button"
                           className="group-list__head"
-                          aria-expanded={aberto}
-                          disabled={!temDetalhe}
-                          onClick={() => setGrupoAberto(aberto ? null : group.functionGroup)}
+                          aria-expanded={temDetalhe ? aberto : undefined}
+                          aria-haspopup={temDetalhe ? undefined : 'dialog'}
+                          title={
+                            temDetalhe
+                              ? 'Ver funções deste grupo'
+                              : 'Ver lojas, faltas, folgas e motivos'
+                          }
+                          onClick={() => {
+                            if (temDetalhe) {
+                              setGrupoAberto(aberto ? null : group.functionGroup);
+                              return;
+                            }
+
+                            openFocus({
+                              kind: 'GROUP',
+                              functionGroup: group.functionGroup,
+                            });
+                          }}
                         >
                           <span className="group-list__name">
                             {temDetalhe && (
