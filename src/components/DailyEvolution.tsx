@@ -1,0 +1,241 @@
+import { useMemo, useState } from 'react';
+import type { DailyPoint, DayCoverageState } from '@/types/analytics';
+import { formatBrDate, fromIsoDate } from '@/utils/date';
+
+interface Props {
+  daily: DailyPoint[];
+}
+
+type Serie = 'absences' | 'dayOffs';
+type CardPeriod = 7 | 15 | 30;
+
+function dayOfWeek(iso: string): number {
+  return fromIsoDate(iso).getDay();
+}
+
+function isWeekend(iso: string): boolean {
+  const d = dayOfWeek(iso);
+  return d === 0 || d === 6;
+}
+
+function milestoneLabel(iso: string, index: number, total: number): string {
+  const date = fromIsoDate(iso);
+  const day = date.getDate();
+  if (day === 1 || day === 15) return String(day);
+  if (total <= 10) return `${day}`;
+  if (index === total - 1) return `${day}`;
+  return '';
+}
+
+function formatPercent(value: number | null): string {
+  if (value === null || !Number.isFinite(value)) return '—';
+  return `${(value * 100).toFixed(0)}%`;
+}
+
+function coverageColor(state: DayCoverageState): string {
+  switch (state) {
+    case 'COMPLETE': return 'evolution__coverage-dot--complete';
+    case 'PARTIAL': return 'evolution__coverage-dot--partial';
+    case 'NO_DATA': return 'evolution__coverage-dot--none';
+  }
+}
+
+function coverageLabel(state: DayCoverageState): string {
+  switch (state) {
+    case 'COMPLETE': return 'Cobertura completa';
+    case 'PARTIAL': return 'Dados parciais';
+    case 'NO_DATA': return 'Sem conferência';
+  }
+}
+
+export function DailyEvolution({ daily }: Props) {
+  const [serie, setSerie] = useState<Serie>('absences');
+  const [cardPeriod, setCardPeriod] = useState<CardPeriod>(7);
+
+  const visibleDays = useMemo(() => {
+    const slice = daily.slice(-cardPeriod);
+    return slice.length > 0 ? slice : daily;
+  }, [daily, cardPeriod]);
+
+  const maxValue = useMemo(
+    () => Math.max(0, ...visibleDays.map((p) => (serie === 'absences' ? p.absences : p.dayOffs))),
+    [visibleDays, serie],
+  );
+
+  const average = useMemo(() => {
+    if (visibleDays.length === 0) return 0;
+    const sum = visibleDays.reduce((acc, p) => acc + (serie === 'absences' ? p.absences : p.dayOffs), 0);
+    return sum / visibleDays.length;
+  }, [visibleDays, serie]);
+
+  const averagePercent = maxValue > 0 ? (average / maxValue) * 100 : 0;
+
+  const stats = useMemo(() => {
+    const values = visibleDays.map((p) => (serie === 'absences' ? p.absences : p.dayOffs));
+    const max = Math.max(0, ...values);
+    const completeDays = visibleDays.filter((p) => p.state === 'COMPLETE').length;
+    const noDataDays = visibleDays.filter((p) => p.state === 'NO_DATA').length;
+    return { max, avg: average, completeDays, noDataDays };
+  }, [visibleDays, serie, average]);
+
+  const periodStart = visibleDays.length > 0 ? visibleDays[0].date : '';
+  const periodEnd = visibleDays.length > 0 ? visibleDays[visibleDays.length - 1].date : '';
+  const periodoLabel = periodStart && periodEnd
+    ? `${formatBrDate(periodStart)} a ${formatBrDate(periodEnd)}`
+    : '';
+
+  const hasData = visibleDays.some((p) => p.absences > 0 || p.dayOffs > 0 || p.state !== 'NO_DATA');
+
+  return (
+    <section className="panel evolution" aria-label="Evolução diária">
+      <div className="evolution__header">
+        <div>
+          <h3 className="panel__title">Evolução diária</h3>
+          {periodoLabel && <p className="evolution__subtitle">{periodoLabel}</p>}
+        </div>
+        <div className="evolution__controls">
+          <div className="scope-switch" role="group" aria-label="Série do gráfico">
+            <button
+              type="button"
+              className={`scope-switch__btn${serie === 'absences' ? ' scope-switch__btn--on' : ''}`}
+              aria-pressed={serie === 'absences'}
+              onClick={() => setSerie('absences')}
+            >
+              Faltas
+            </button>
+            <button
+              type="button"
+              className={`scope-switch__btn${serie === 'dayOffs' ? ' scope-switch__btn--on' : ''}`}
+              aria-pressed={serie === 'dayOffs'}
+              onClick={() => setSerie('dayOffs')}
+            >
+              Folgas
+            </button>
+          </div>
+          <div className="evolution__period-selector" role="group" aria-label="Período do gráfico">
+            {([7, 15, 30] as CardPeriod[]).map((p) => (
+              <button
+                key={p}
+                type="button"
+                className={`evolution__period-btn${cardPeriod === p ? ' evolution__period-btn--on' : ''}`}
+                aria-pressed={cardPeriod === p}
+                onClick={() => setCardPeriod(p)}
+              >
+                {p}d
+              </button>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {!hasData ? (
+        <p className="evolution__empty">Nenhum dado disponível para o período.</p>
+      ) : (
+        <>
+          <div className="evolution__chart-wrapper">
+            <div
+              className="evolution__chart"
+              role="img"
+              aria-label={`${serie === 'absences' ? 'Faltas' : 'Folgas'} por dia no período`}
+            >
+              {visibleDays.map((point, index) => {
+                const value = serie === 'absences' ? point.absences : point.dayOffs;
+                const heightPercent = maxValue > 0 ? (value / maxValue) * 100 : 0;
+                const weekend = isWeekend(point.date);
+                const nome = serie === 'absences' ? 'Faltas' : 'Folgas';
+                const cobertura = `Conferências: ${point.submitted} de ${point.expected} (${formatPercent(point.coverage)})`;
+                const tooltip =
+                  point.state === 'NO_DATA'
+                    ? `${formatBrDate(point.date)} · Sem conferência — nada apurado`
+                    : `${formatBrDate(point.date)} · ${nome}: ${value} · ${cobertura}`;
+                const showMilestone = milestoneLabel(point.date, index, visibleDays.length);
+
+                return (
+                  <div
+                    key={point.date}
+                    className={`evolution__col${weekend ? ' evolution__col--weekend' : ''}`}
+                  >
+                    <div className="evolution__track">
+                      {point.state === 'NO_DATA' ? (
+                        <div className="evolution__gap" title={tooltip} />
+                      ) : (
+                        <div
+                          className={[
+                            'evolution__bar',
+                            serie === 'absences' ? 'evolution__bar--danger' : 'evolution__bar--brand',
+                            point.state === 'PARTIAL' ? 'evolution__bar--partial' : '',
+                          ].filter(Boolean).join(' ')}
+                          style={{ height: `${heightPercent}%` }}
+                          title={tooltip}
+                        />
+                      )}
+                    </div>
+                    {showMilestone && (
+                      <span className="evolution__milestone" title={formatBrDate(point.date)}>
+                        {showMilestone}
+                      </span>
+                    )}
+                  </div>
+                );
+              })}
+              {maxValue > 0 && (
+                <div
+                  className="evolution__avg-line"
+                  style={{ bottom: `${averagePercent}%` }}
+                  title={`Média diária: ${average.toFixed(1)}`}
+                  aria-hidden="true"
+                />
+              )}
+            </div>
+          </div>
+
+          <div className="evolution__coverage" aria-label="Cobertura diária">
+            <span className="evolution__coverage-label">Cobertura</span>
+            <div className="evolution__coverage-strip">
+              {visibleDays.map((point) => (
+                <span
+                  key={point.date}
+                  className={`evolution__coverage-dot ${coverageColor(point.state)}`}
+                  title={`${formatBrDate(point.date)} — ${coverageLabel(point.state)}`}
+                />
+              ))}
+            </div>
+            <div className="evolution__coverage-legend">
+              <span className="evolution__legend-item">
+                <span className="evolution__legend-dot evolution__legend-dot--complete" />
+                Completa
+              </span>
+              <span className="evolution__legend-item">
+                <span className="evolution__legend-dot evolution__legend-dot--partial" />
+                Parcial
+              </span>
+              <span className="evolution__legend-item">
+                <span className="evolution__legend-dot evolution__legend-dot--none" />
+                Sem dado
+              </span>
+            </div>
+          </div>
+
+          <div className="evolution__summary">
+            <div className="evolution__stat">
+              <span className="evolution__stat-label">Maior valor</span>
+              <span className="evolution__stat-value">{stats.max}</span>
+            </div>
+            <div className="evolution__stat">
+              <span className="evolution__stat-label">Média diária</span>
+              <span className="evolution__stat-value">{stats.avg.toFixed(1)}</span>
+            </div>
+            <div className="evolution__stat">
+              <span className="evolution__stat-label">Cobertura completa</span>
+              <span className="evolution__stat-value">{stats.completeDays} dia{stats.completeDays !== 1 ? 's' : ''}</span>
+            </div>
+            <div className="evolution__stat">
+              <span className="evolution__stat-label">Sem conferência</span>
+              <span className="evolution__stat-value">{stats.noDataDays} dia{stats.noDataDays !== 1 ? 's' : ''}</span>
+            </div>
+          </div>
+        </>
+      )}
+    </section>
+  );
+}

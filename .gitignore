@@ -1,0 +1,26 @@
+node_modules
+dist
+dist-ssr
+.env
+.env.validacao
+.env.local
+*.local
+.DS_Store
+coverage
+*.log
+
+# ---------------------------------------------------------------------------
+# FASE 4.1 — segredos operacionais.
+#
+# `*.local` acima ja pegaria a maioria destes, mas os nomes ficam explicitos
+# de proposito: quem abrir este arquivo tem que ver, sem decifrar padrao, que
+# senha e service_role nunca entram no repositorio.
+# ---------------------------------------------------------------------------
+.credenciais-lojas.local.csv
+.senhas-lojas.local.csv
+*.credenciais.csv
+*.senhas.csv
+.service-role
+
+.vercel
+.env*

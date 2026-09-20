@@ -1,0 +1,94 @@
+/* ==========================================================================
+   HIPERIDEAL — tokens visuais
+   Verde como cor principal, fundo claro, vermelho SOMENTE para faltas/erros,
+   amarelo/laranja para pendências, verde para normal/concluído.
+   ========================================================================== */
+
+:root {
+  /* Marca */
+  --hi-green-900: #06421F;
+  --hi-green-800: #0A5A2C;
+  --hi-green-700: #0B6B33;
+  --hi-green-600: #0E7C3F;
+  --hi-green-500: #159B4F;
+  --hi-green-400: #3DB86A;
+  --hi-green-300: #6FCF92;
+  --hi-green-200: #A9DCBE;
+  --hi-green-100: #D9F0E3;
+  --hi-green-50: #EDF8F1;
+
+  /* Neutros */
+  --hi-bg: #F3F6F4;
+  --hi-surface: #FFFFFF;
+  --hi-surface-alt: #FAFBFA;
+  --hi-surface-raised: #FFFFFF;
+  --hi-border: #DCE4DF;
+  --hi-border-strong: #C3CFC8;
+  --hi-text: #16221B;
+  --hi-text-muted: #5E6E65;
+  --hi-text-soft: #8A9891;
+
+  /* Semânticos */
+  --hi-danger: #C62828;
+  --hi-danger-strong: #A31F1F;
+  --hi-danger-bg: #FDECEC;
+  --hi-danger-border: #F3C2C2;
+
+  --hi-warning: #A85B00;
+  --hi-warning-bg: #FFF5E5;
+  --hi-warning-border: #F3D8AE;
+
+  --hi-success: #0E7C3F;
+  --hi-success-bg: #E7F5ED;
+  --hi-success-border: #B7DFC8;
+
+  --hi-info: #1565C0;
+  --hi-info-bg: #E3F2FD;
+  --hi-info-border: #BBDEFB;
+
+  /* Métricas */
+  --hi-radius-xs: 4px;
+  --hi-radius-sm: 6px;
+  --hi-radius: 10px;
+  --hi-radius-lg: 14px;
+  --hi-radius-xl: 20px;
+  --hi-radius-full: 999px;
+  --hi-shadow-sm: 0 1px 2px rgba(16, 34, 24, 0.06);
+  --hi-shadow: 0 2px 8px rgba(16, 34, 24, 0.07);
+  --hi-shadow-md: 0 4px 16px rgba(16, 34, 24, 0.10);
+  --hi-shadow-lg: 0 12px 32px rgba(16, 34, 24, 0.18);
+  --hi-shadow-card: 0 1px 3px rgba(16, 34, 24, 0.06), 0 4px 12px rgba(16, 34, 24, 0.04);
+  --hi-shadow-card-lg: 0 2px 8px rgba(16, 34, 24, 0.06), 0 8px 24px rgba(16, 34, 24, 0.08);
+  --hi-shadow-float: 0 8px 32px rgba(16, 34, 24, 0.12), 0 2px 8px rgba(16, 34, 24, 0.06);
+
+  /* Gradientes premium */
+  --hi-gradient-hero: linear-gradient(135deg, var(--hi-green-900) 0%, var(--hi-green-700) 50%, var(--hi-green-600) 100%);
+  --hi-gradient-card: linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.02) 100%);
+  --hi-gradient-header: linear-gradient(180deg, #FFFFFF 0%, #FAFBFA 100%);
+  --hi-gradient-header-green: linear-gradient(135deg, var(--hi-green-900) 0%, var(--hi-green-700) 100%);
+
+  /* Fundo premium */
+  --hi-bg-app: #F0F4F1;
+
+  --hi-space-1: 4px;
+  --hi-space-2: 8px;
+  --hi-space-3: 12px;
+  --hi-space-4: 16px;
+  --hi-space-5: 24px;
+  --hi-space-6: 32px;
+  --hi-space-7: 40px;
+  --hi-space-8: 48px;
+
+  --hi-font: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, system-ui, -apple-system, sans-serif;
+
+  /* Transições */
+  --hi-transition-fast: 0.12s ease;
+  --hi-transition: 0.18s ease;
+  --hi-transition-slow: 0.28s ease;
+
+  /* Foco acessível */
+  --hi-focus-ring: 0 0 0 3px rgba(14, 124, 63, 0.35);
+
+  /* Grade da lista no desktop: função | faltas | folgas */
+  --hi-row-grid: minmax(0, 1fr) 148px 148px;
+}
