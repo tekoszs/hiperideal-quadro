@@ -123,14 +123,18 @@ export function buildNetworkRows(data: NetworkDayData): NetworkRow[] {
 
 /** Cards do topo. `stores` vem de `quadro_stores` — nada é inventado. */
 export function summarizeNetworkDay(rows: NetworkRow[]): NetworkDaySummary {
+  const submittedRows = rows.filter((row) => row.status === 'SUBMITTED');
+
   return {
     stores: rows.length,
-    submitted: rows.filter((row) => row.status === 'SUBMITTED').length,
+    submitted: submittedRows.length,
     // Pendente para o supervisor = tudo que ainda não chegou enviado:
     // loja sem conferência, rascunho em andamento e conferência reaberta.
     pending: rows.filter((row) => row.status !== 'SUBMITTED').length,
-    totalAbsences: sum(rows.map((row) => row.totalAbsences)),
-    totalDayOffs: sum(rows.map((row) => row.totalDayOffs)),
+    // Faltas e folgas do cabeçalho são números OFICIAIS do dia. Rascunhos e
+    // reabertas continuam visíveis na lista, mas só entram no total após envio.
+    totalAbsences: sum(submittedRows.map((row) => row.totalAbsences)),
+    totalDayOffs: sum(submittedRows.map((row) => row.totalDayOffs)),
   };
 }
 

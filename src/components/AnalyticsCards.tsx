@@ -22,22 +22,39 @@ function percent(value: number | null, digits = 1): string {
   return `${(value * 100).toFixed(digits).replace('.', ',')}%`;
 }
 
-/** Variação contra o período anterior, ou o aviso de que não há base. */
-function DeltaNote({ delta }: { delta: Delta }) {
+/** Comparação explícita: mostra a base anterior para o percentual não ficar solto. */
+function DeltaNote({
+  delta,
+  metric,
+}: {
+  delta: Delta;
+  metric: 'absences' | 'dayOffs';
+}) {
   if (!delta.hasBase || delta.percent === null) {
     return <p className="summary-card__note">Sem base para comparação</p>;
   }
 
-  const subiu = delta.percent > 0;
-  const estavel = Math.abs(delta.percent) < 0.05;
+  const difference = delta.current - delta.previous;
+  const estavel = difference === 0;
+  const subiu = difference > 0;
+  const variation = estavel
+    ? 'sem variação'
+    : `${subiu ? '+' : ''}${difference} (${formatPercent(delta.percent)})`;
+
+  /*
+   * Em faltas, subir é ruim e cair é bom. Em folgas não aplicamos essa leitura:
+   * mais folgas pode ser apenas efeito da escala, então a comparação fica neutra.
+   */
+  const tone =
+    metric === 'absences' && !estavel
+      ? subiu
+        ? ' summary-card__note--up'
+        : ' summary-card__note--down'
+      : ' summary-card__note--compare';
 
   return (
-    <p
-      className={`summary-card__note${
-        estavel ? '' : subiu ? ' summary-card__note--up' : ' summary-card__note--down'
-      }`}
-    >
-      {estavel ? 'Igual ao' : `${formatPercent(delta.percent)} vs`} período anterior
+    <p className={`summary-card__note${tone}`}>
+      Anterior: {delta.previous} · {variation}
     </p>
   );
 }
@@ -72,13 +89,13 @@ export function AnalyticsCards({ headline, kind, storeCount, days }: Props) {
       >
         <p className="summary-card__label">Faltas</p>
         <p className="summary-card__value">{headline.totalAbsences}</p>
-        <DeltaNote delta={headline.absencesDelta} />
+        <DeltaNote delta={headline.absencesDelta} metric="absences" />
       </article>
 
       <article className="summary-card summary-card--neutral">
         <p className="summary-card__label">Folgas</p>
         <p className="summary-card__value">{headline.totalDayOffs}</p>
-        <DeltaNote delta={headline.dayOffsDelta} />
+        <DeltaNote delta={headline.dayOffsDelta} metric="dayOffs" />
       </article>
 
       {/*

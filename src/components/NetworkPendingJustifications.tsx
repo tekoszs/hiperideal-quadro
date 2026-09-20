@@ -10,39 +10,49 @@ interface Props {
 }
 
 /**
- * FASE 4.5 — JUSTIFICATIVAS PENDENTES NA REDE.
+ * Justificativas pendentes da rede.
  *
- * SOMENTE LEITURA, e não por limitação técnica: quem sabe por que o associado
- * faltou é a loja. O supervisor precisa saber ONDE cobrar o documento — não
- * escolher um motivo no lugar do gerente. Um botão de resolver aqui produziria
- * "Falta injustificada" decidida por quem nunca falou com o associado.
- *
- * O escopo é o da RLS: o gerente distrital vê o distrito dele, o gerente geral
- * vê a rede. Nada aqui filtra segurança — só mostra o que já veio.
- *
- * Âmbar, nunca vermelho: a falta foi contada e a conferência é válida. O que
- * falta é o papel.
+ * As faltas aqui já foram contabilizadas. O supervisor usa este bloco para
+ * identificar rapidamente qual loja ainda precisa concluir motivo/documento.
  */
 export function NetworkPendingJustifications({ pendings, limit = 8 }: Props) {
   if (pendings.length === 0) return null;
 
   const total = pendings.reduce((soma, item) => soma + item.quantity, 0);
+  const stores = new Set(pendings.map((item) => item.storeId)).size;
+  const oldestDays = Math.max(...pendings.map((item) => item.waitingDays));
   const visiveis = pendings.slice(0, limit);
   const restantes = pendings.length - visiveis.length;
 
   return (
     <section className="panel netpend" aria-label="Justificativas pendentes na rede">
-      <div className="panel__head">
-        <h3 className="panel__title">Justificativas pendentes</h3>
-        <span className="netpend__badge">
-          {total} {total === 1 ? 'falta' : 'faltas'}
-        </span>
+      <div className="netpend__head">
+        <div>
+          <p className="netpend__eyebrow">Acompanhamento</p>
+          <h3 className="panel__title">Justificativas pendentes</h3>
+          <p className="netpend__note">
+            Faltas já contabilizadas que ainda aguardam o motivo ou documento definitivo
+            da loja.
+          </p>
+        </div>
+
+        <span className="netpend__action-badge">Aguardando ação da loja</span>
       </div>
 
-      <p className="netpend__note">
-        Faltas já enviadas cujo motivo definitivo ainda não foi apresentado. A troca é
-        feita pelo gerente da loja.
-      </p>
+      <div className="netpend__metrics" aria-label="Resumo das justificativas pendentes">
+        <div className="netpend__metric">
+          <span>Faltas pendentes</span>
+          <strong>{total}</strong>
+        </div>
+        <div className="netpend__metric">
+          <span>Lojas envolvidas</span>
+          <strong>{stores}</strong>
+        </div>
+        <div className="netpend__metric">
+          <span>Mais antiga</span>
+          <strong>{waitingLabel(oldestDays)}</strong>
+        </div>
+      </div>
 
       <div className="focus-table__scroll">
         <table className="netpend__table">
@@ -50,29 +60,39 @@ export function NetworkPendingJustifications({ pendings, limit = 8 }: Props) {
             <tr>
               <th scope="col">Data</th>
               <th scope="col">Loja</th>
-              <th scope="col">Distrito</th>
               <th scope="col">Função</th>
+              <th scope="col">Distrito</th>
               <th scope="col" className="netpend__num">
                 Faltas
               </th>
-              <th scope="col">Aguardando</th>
+              <th scope="col">Situação</th>
             </tr>
           </thead>
           <tbody>
             {visiveis.map((pending) => (
               <tr key={`${pending.storeId}-${pending.referenceDate}-${pending.positionId}`}>
-                <td data-label="Data">{formatBrDate(pending.referenceDate)}</td>
-                <td data-label="Loja">{pending.storeName}</td>
+                <td data-label="Data" className="netpend__date">
+                  {formatBrDate(pending.referenceDate)}
+                </td>
+                <td data-label="Loja">
+                  <strong className="netpend__store">{pending.storeName}</strong>
+                </td>
+                <td data-label="Função" className="netpend__function">
+                  {pending.positionName}
+                </td>
                 <td data-label="Distrito">
-                  {pending.districtId ? getDistrict(pending.districtId)?.name ?? pending.districtId : '—'}
+                  {pending.districtId
+                    ? getDistrict(pending.districtId)?.name ?? pending.districtId
+                    : '—'}
                 </td>
-                <td data-label="Função">{pending.positionName}</td>
                 <td data-label="Faltas" className="netpend__num">
-                  {pending.quantity}
+                  <strong>{pending.quantity}</strong>
                 </td>
-                <td data-label="Aguardando">
+                <td data-label="Situação">
                   <span
-                    className={`netpend__waiting${pending.waitingDays >= 7 ? ' netpend__waiting--long' : ''}`}
+                    className={`netpend__waiting${
+                      pending.waitingDays >= 7 ? ' netpend__waiting--long' : ''
+                    }`}
                   >
                     {waitingLabel(pending.waitingDays)}
                   </span>
@@ -85,7 +105,7 @@ export function NetworkPendingJustifications({ pendings, limit = 8 }: Props) {
 
       {restantes > 0 && (
         <p className="netpend__more">
-          e mais {restantes} {restantes === 1 ? 'pendência' : 'pendências'} no período.
+          Mais {restantes} {restantes === 1 ? 'pendência' : 'pendências'} no período.
         </p>
       )}
     </section>
