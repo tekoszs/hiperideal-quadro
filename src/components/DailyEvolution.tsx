@@ -204,9 +204,11 @@ export function DailyEvolution({ daily }: Props) {
                           </div>
                         ) : (
                           <>
-                            <span className="evolution__bar-value">{value}</span>
                             {value === 0 ? (
-                              <span className="evolution__zero-marker" aria-hidden="true" />
+                              <>
+                                <span className="evolution__zero-value">0</span>
+                                <span className="evolution__zero-marker" aria-hidden="true" />
+                              </>
                             ) : (
                               <div
                                 className={[
@@ -219,7 +221,9 @@ export function DailyEvolution({ daily }: Props) {
                                   .filter(Boolean)
                                   .join(' ')}
                                 style={{ height: `${heightPercent}%` }}
-                              />
+                              >
+                                <span className="evolution__bar-value">{value}</span>
+                              </div>
                             )}
                           </>
                         )}
@@ -244,7 +248,7 @@ export function DailyEvolution({ daily }: Props) {
               <span className="evolution__coverage-label">Cobertura das conferências</span>
               <span className="evolution__coverage-resume">
                 {stats.completeDays} completa{stats.completeDays === 1 ? '' : 's'} ·{' '}
-                {stats.partialDays} parcial{stats.partialDays === 1 ? '' : 'is'} ·{' '}
+                {stats.partialDays} {stats.partialDays === 1 ? 'parcial' : 'parciais'} ·{' '}
                 {stats.noDataDays} sem dado
               </span>
             </div>
