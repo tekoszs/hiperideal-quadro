@@ -88,7 +88,11 @@ export function DailyEvolution({ daily }: Props) {
     return sum / visibleDays.length;
   }, [visibleDays, serie]);
 
-  const averagePercent = maxValue > 0 ? Math.min(100, (average / maxValue) * 100) : 0;
+  // O plot tem 160 px úteis abaixo da margem superior de 18 px.
+  // A linha usa pixels para continuar alinhada às barras mesmo com os rótulos
+  // dos dias dentro da própria coluna.
+  const averageTopPx =
+    maxValue > 0 ? 18 + (1 - Math.min(1, average / maxValue)) * 160 : 178;
 
   const stats = useMemo(() => {
     const values = visibleDays.map((p) => (serie === 'absences' ? p.absences : p.dayOffs));
@@ -172,7 +176,7 @@ export function DailyEvolution({ daily }: Props) {
               {maxValue > 0 && (
                 <div
                   className="evolution__avg-line"
-                  style={{ bottom: `${averagePercent}%` }}
+                  style={{ top: `${averageTopPx}px` }}
                   title={`Média diária: ${decimal(average)}`}
                   aria-hidden="true"
                 >
