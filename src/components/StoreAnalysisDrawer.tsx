@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import type { ResolvedPeriod, StoreAnalysis } from '@/types/analytics';
 import { BarSeries, toBarPoint } from '@/components/charts/BarSeries';
 import { RankingBars } from '@/components/charts/RankingBars';
+import { ReasonRankingDetails } from '@/components/ReasonRankingDetails';
 import { describeRange } from '@/domain/period';
 import { NETWORK_STATUS_LABEL, NETWORK_STATUS_TONE } from '@/lib/constants';
 import { formatBrDate } from '@/utils/date';
@@ -107,15 +108,12 @@ export function StoreAnalysisDrawer({ analysis, period, onClose, onOpenConferenc
 
           <section className="panel">
             <h4 className="panel__title">Motivos</h4>
-            <RankingBars
+            <ReasonRankingDetails
               ariaLabel={`Motivos das faltas em ${analysis.storeName}`}
               emptyMessage="Nenhum motivo registrado no período."
-              rows={analysis.reasons.map((entry) => ({
-                key: entry.reasonId,
-                label: entry.reasonName,
-                value: entry.quantity,
-                share: entry.share,
-              }))}
+              reasons={analysis.reasons}
+              details={analysis.reasonDetails}
+              showStore={false}
             />
           </section>
 

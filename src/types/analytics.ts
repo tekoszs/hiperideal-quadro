@@ -244,6 +244,20 @@ export interface ReasonEntry {
   share: number | null;
 }
 
+/** Ocorrência individual de um motivo, usada para detalhar motivos genéricos como "Outros". */
+export interface ReasonDetailEntry {
+  reasonId: string;
+  reasonName: string;
+  referenceDate: string;
+  storeId: string;
+  storeCode: string;
+  storeName: string;
+  positionId: string;
+  positionName: string;
+  quantity: number;
+  observation: string | null;
+}
+
 /**
  * Estado de cobertura de um dia — o que separa "zero de verdade" de
  * "ninguém informou".
@@ -434,6 +448,8 @@ export interface FocusAnalysis {
   positions: PositionRankingEntry[];
   /** Só de `reason_quantity`, e só de conferências ENVIADAS. */
   reasons: ReasonEntry[];
+  /** Ocorrências individuais dos motivos, para abrir "Outros" com contexto. */
+  reasonDetails: ReasonDetailEntry[];
   /** True quando o foco não teve nenhuma falta no período. */
   isEmpty: boolean;
 }
@@ -484,6 +500,8 @@ export interface StoreAnalysis {
   daysWithAbsence: number;
   positions: PositionRankingEntry[];
   reasons: ReasonEntry[];
+  /** Ocorrências individuais dos motivos, incluindo a observação digitada. */
+  reasonDetails: ReasonDetailEntry[];
   daily: DailyPoint[];
   /**
    * Conferências da loja no período, para o link com a tela Conferências.

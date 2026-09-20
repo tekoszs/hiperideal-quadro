@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import type { FocusAnalysis, ResolvedPeriod } from '@/types/analytics';
 import type { FocusPeriodKind } from '@/hooks/useNetworkAnalytics';
 import { RankingBars } from '@/components/charts/RankingBars';
+import { ReasonRankingDetails } from '@/components/ReasonRankingDetails';
 import { describeRange } from '@/domain/period';
 import { formatBrDate } from '@/utils/date';
 
@@ -181,15 +182,12 @@ export function FocusDrawer({
               {/* --------------------------------------------- os motivos */}
               <section className="panel">
                 <h4 className="panel__title">Motivos</h4>
-                <RankingBars
+                <ReasonRankingDetails
                   ariaLabel={`Motivos das faltas em ${analysis.title}`}
                   emptyMessage="Nenhum motivo registrado no período."
-                  rows={analysis.reasons.map((entry) => ({
-                    key: entry.reasonId,
-                    label: entry.reasonName,
-                    value: entry.quantity,
-                    share: entry.share,
-                  }))}
+                  reasons={analysis.reasons}
+                  details={analysis.reasonDetails}
+                  showStore
                 />
               </section>
 

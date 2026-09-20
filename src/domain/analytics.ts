@@ -19,6 +19,7 @@ import type {
   RangeItemRow,
   RangeReasonRow,
   ReasonEntry,
+  ReasonDetailEntry,
   ResolvedPeriod,
   SectorRanking,
   StoreAnalysis,
@@ -961,6 +962,46 @@ export function buildFocusStores(
   );
 }
 
+/** Ocorrências individuais de motivos, preservando a observação e o contexto. */
+function buildReasonDetails(
+  reasons: RangeReasonRow[],
+  items: RangeItemRow[],
+  stores: NetworkStoreRef[],
+): ReasonDetailEntry[] {
+  const itemByKey = new Map(
+    items.map((item) => [`${item.conferenceId}::${item.positionId}`, item]),
+  );
+  const storeById = new Map(stores.map((store) => [store.id, store]));
+
+  return reasons
+    .filter((reason) => reason.reasonQuantity > 0)
+    .map((reason) => {
+      const item = itemByKey.get(`${reason.conferenceId}::${reason.positionId}`);
+      const store = storeById.get(reason.storeId);
+
+      return {
+        reasonId: reason.reasonId,
+        reasonName: reason.reasonName,
+        referenceDate: reason.referenceDate,
+        storeId: reason.storeId,
+        storeCode: store?.code ?? '',
+        storeName: store?.name ?? item?.storeName ?? reason.storeId,
+        positionId: reason.positionId,
+        positionName: item?.positionName ?? reason.positionId,
+        quantity: reason.reasonQuantity,
+        // A observação específica do motivo tem prioridade. Se não houver,
+        // aproveita a observação geral daquele lançamento.
+        observation: reason.observation ?? item?.observation ?? null,
+      };
+    })
+    .sort(
+      (a, b) =>
+        b.referenceDate.localeCompare(a.referenceDate) ||
+        a.storeName.localeCompare(b.storeName, 'pt-BR') ||
+        a.positionName.localeCompare(b.positionName, 'pt-BR'),
+    );
+}
+
 /** Rótulo e subtítulo do foco, tirados das próprias linhas. */
 function describeFocus(
   focus: AnalyticsFocus,
@@ -1041,6 +1082,7 @@ export function buildFocusAnalysis(
     // não informaria nada.
     positions: focus.kind === 'POSITION' ? [] : buildPositionRanking(items),
     reasons: buildReasonRanking(reasons),
+    reasonDetails: buildReasonDetails(reasons, items, stores),
     isEmpty: totalAbsences === 0 && lojas.length === 0,
   };
 }
@@ -1170,6 +1212,7 @@ export function buildStoreAnalysis(
     days: buildStoreDays(items, reasons, conferences),
     highlightPositionId,
     reasons: buildReasonRanking(reasons),
+    reasonDetails: buildReasonDetails(reasons, items, [store]),
     // Uma loja: o esperado por dia é 1, nunca o total da rede.
     daily: buildDailySeries(period.range, items, conferences, 1),
     conferences: conferences
