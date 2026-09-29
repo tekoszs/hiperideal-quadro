@@ -327,7 +327,7 @@ export function SupervisorNetworkDashboardPage({ profile, onBack, onOpenConferen
                       </div>
                       <div className="supervisor-attention__card supervisor-attention__card--coverage">
                         <strong>{coverage?.pending ?? 0} conferências pendentes</strong>
-                        <span>{coverage ? `${coverage.rate.toFixed(1).replace('.', ',')}% de cobertura no período.` : 'Cobertura indisponível.'}</span>
+                        <span>{coverage?.rate != null ? `${(coverage.rate * 100).toFixed(1).replace('.', ',')}% de cobertura no período.` : 'Cobertura indisponível.'}</span>
                       </div>
                       <div className="supervisor-attention__card">
                         <strong>
