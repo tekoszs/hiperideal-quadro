@@ -313,7 +313,12 @@ export function SupervisorNetworkDashboardPage({ profile, onBack, onOpenConferen
                   */}
                   <NetworkPendingJustifications pendings={analytics.pendingJustifications} />
 
-                  <section className="supervisor-attention" aria-label="Atenção do supervisor">
+
+                </>
+              )}
+
+              {!analytics.isEmpty && (
+                <section className="supervisor-attention" aria-label="Atenção do supervisor">
                     <div className="supervisor-attention__head">
                       <div>
                         <h3 className="supervisor-attention__title">Atenção do Supervisor</h3>
@@ -351,7 +356,6 @@ export function SupervisorNetworkDashboardPage({ profile, onBack, onOpenConferen
                       </div>
                     </div>
                   </section>
-                </>
               )}
 
               {/* ---------------------------------------------- evolução */}
