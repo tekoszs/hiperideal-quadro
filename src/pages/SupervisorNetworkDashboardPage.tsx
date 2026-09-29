@@ -83,8 +83,38 @@ export function SupervisorNetworkDashboardPage({ profile, onBack, onOpenConferen
   // Distrito" o modo demonstração — que tem uma loja só, não um distrito.
   const titulo = districtLocked ? 'Visão do Distrito' : 'Visão da Rede';
 
+  const topStore = analytics?.storeRanking[0] ?? null;
+  const topPosition = analytics?.positionRanking[0] ?? null;
+  const coverage = analytics?.headline.coverage ?? null;
+
   return (
-    <main className="page">
+    <main className="page supervisor-dashboard">
+      <style>{`
+        .supervisor-dashboard .section { border: 0; box-shadow: 0 8px 30px rgba(15, 46, 29, .07); }
+        .supervisor-dashboard .section__head--network { padding-bottom: 12px; }
+        .supervisor-dashboard .section__body { padding-top: 16px; }
+        .supervisor-dashboard .analytics-filters { padding: 14px; border: 1px solid #dfe9e2; border-radius: 14px; background: #f8fbf9; }
+        .supervisor-dashboard .panel { border-color: #dfe7e1; border-radius: 14px; box-shadow: 0 5px 18px rgba(18, 55, 34, .055); }
+        .supervisor-dashboard .panel__title { font-size: 14px; letter-spacing: .015em; }
+        .supervisor-dashboard .supervisor-attention { margin: 18px 0; padding: 16px; border: 1px solid #f2d2a6; border-radius: 14px; background: linear-gradient(135deg,#fffaf3,#fff); }
+        .supervisor-dashboard .supervisor-attention__head { display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:12px; }
+        .supervisor-dashboard .supervisor-attention__title { margin:0; color:#9a4b00; font-size:14px; font-weight:800; text-transform:uppercase; letter-spacing:.035em; }
+        .supervisor-dashboard .supervisor-attention__hint { margin:3px 0 0; color:#7c7166; font-size:12px; }
+        .supervisor-dashboard .supervisor-attention__grid { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:10px; }
+        .supervisor-dashboard .supervisor-attention__card { min-height:82px; padding:13px; border:1px solid #f0dfc8; border-radius:11px; background:#fff; }
+        .supervisor-dashboard .supervisor-attention__card strong { display:block; margin-bottom:5px; color:#b42318; font-size:14px; }
+        .supervisor-dashboard .supervisor-attention__card span { color:#68746d; font-size:12px; line-height:1.35; }
+        .supervisor-dashboard .supervisor-attention__card--coverage strong { color:#ad5b00; }
+        .supervisor-dashboard .supervisor-attention__card button { padding:0; border:0; background:none; color:inherit; font:inherit; font-weight:inherit; text-align:left; cursor:pointer; }
+        .supervisor-dashboard .analytics-grid { gap:14px; }
+        .supervisor-dashboard .ranking__row { transition:background .15s ease, transform .15s ease; }
+        .supervisor-dashboard .ranking__row:hover { background:#f7fbf8; }
+        @media (max-width: 980px) { .supervisor-dashboard .supervisor-attention__grid { grid-template-columns:repeat(2,minmax(0,1fr)); } }
+        @media (max-width: 620px) {
+          .supervisor-dashboard .supervisor-attention__grid { grid-template-columns:1fr; }
+          .supervisor-dashboard .analytics-filters { padding:10px; }
+        }
+      `}</style>
       {onBack && <BackButton onClick={onBack} />}
 
       <div className="page-hero">
@@ -282,6 +312,45 @@ export function SupervisorNetworkDashboardPage({ profile, onBack, onOpenConferen
                     Fica ANTES dos rankings porque é ação pendente, não análise.
                   */}
                   <NetworkPendingJustifications pendings={analytics.pendingJustifications} />
+
+                  <section className="supervisor-attention" aria-label="Atenção do supervisor">
+                    <div className="supervisor-attention__head">
+                      <div>
+                        <h3 className="supervisor-attention__title">Atenção do Supervisor</h3>
+                        <p className="supervisor-attention__hint">Principais pontos que pedem acompanhamento neste período.</p>
+                      </div>
+                    </div>
+                    <div className="supervisor-attention__grid">
+                      <div className="supervisor-attention__card">
+                        <strong>{analytics.headline.storesWithAbsence} {analytics.headline.storesWithAbsence === 1 ? 'loja com falta' : 'lojas com falta'}</strong>
+                        <span>de {analytics.storesConsidered} lojas consideradas no período.</span>
+                      </div>
+                      <div className="supervisor-attention__card supervisor-attention__card--coverage">
+                        <strong>{coverage?.pending ?? 0} conferências pendentes</strong>
+                        <span>{coverage ? `${coverage.rate.toFixed(1).replace('.', ',')}% de cobertura no período.` : 'Cobertura indisponível.'}</span>
+                      </div>
+                      <div className="supervisor-attention__card">
+                        <strong>
+                          {topStore ? (
+                            <button type="button" onClick={() => openStore(topStore.storeId)}>
+                              {topStore.label}: {topStore.absences} faltas
+                            </button>
+                          ) : 'Sem loja crítica'}
+                        </strong>
+                        <span>{topStore ? `${topStore.share.toFixed(1).replace('.', ',')}% das faltas registradas.` : 'Nenhuma falta registrada.'}</span>
+                      </div>
+                      <div className="supervisor-attention__card">
+                        <strong>
+                          {topPosition ? (
+                            <button type="button" onClick={() => openFocus({ kind: 'POSITION', positionId: topPosition.positionId })}>
+                              {topPosition.label}
+                            </button>
+                          ) : 'Sem função crítica'}
+                        </strong>
+                        <span>{topPosition ? `${topPosition.absences} faltas em ${topPosition.storesAffected} ${topPosition.storesAffected === 1 ? 'loja' : 'lojas'}.` : 'Nenhuma função impactada.'}</span>
+                      </div>
+                    </div>
+                  </section>
                 </>
               )}
 
