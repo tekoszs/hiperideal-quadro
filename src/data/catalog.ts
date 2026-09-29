@@ -40,6 +40,7 @@ export const POSITIONS: Position[] = [
   { id: 'pos-repositor-mercearia', name: 'REPOSITOR - MERCEARIA', functionGroup: 'REPOSITOR', sector: 'MERCEARIA', active: true, displayOrder: 23 },
   { id: 'pos-repositor-frios', name: 'REPOSITOR - FRIOS', functionGroup: 'REPOSITOR', sector: 'FRIOS', active: true, displayOrder: 24 },
   { id: 'pos-repositor-bazar', name: 'REPOSITOR - BAZAR', functionGroup: 'REPOSITOR', sector: 'BAZAR', active: true, displayOrder: 25 },
+  { id: 'pos-auxiliar-operacoes-ecommerce', name: 'AUXILIAR DE OPERAÇÕES - ECOMMERCE', functionGroup: 'AUXILIAR DE OPERAÇÕES', sector: 'ECOMMERCE', active: true, displayOrder: 26 },
 ];
 
 export const STORE_STAFFING: StoreStaffing[] = [
@@ -68,4 +69,5 @@ export const STORE_STAFFING: StoreStaffing[] = [
   { id: 'staff-124-repositor-mercearia', storeId: 'store-124', positionId: 'pos-repositor-mercearia', authorizedQuantity: null, effectiveFrom: '2026-01-01', effectiveTo: null },
   { id: 'staff-124-repositor-frios', storeId: 'store-124', positionId: 'pos-repositor-frios', authorizedQuantity: null, effectiveFrom: '2026-01-01', effectiveTo: null },
   { id: 'staff-124-repositor-bazar', storeId: 'store-124', positionId: 'pos-repositor-bazar', authorizedQuantity: null, effectiveFrom: '2026-01-01', effectiveTo: null },
+  { id: 'staff-124-auxiliar-operacoes-ecommerce', storeId: 'store-124', positionId: 'pos-auxiliar-operacoes-ecommerce', authorizedQuantity: null, effectiveFrom: '2026-01-01', effectiveTo: null },
 ];
