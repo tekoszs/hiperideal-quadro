@@ -117,7 +117,19 @@ export function DailyEvolution({ daily }: Props) {
   );
 
   return (
-    <section className="panel evolution" aria-label="Evolução diária">
+    <section className="panel evolution evolution--executive" aria-label="Evolução diária">
+      <style>{`
+        .evolution--executive { border-radius:16px; box-shadow:0 7px 24px rgba(18,55,34,.07); }
+        .evolution--executive .evolution__chart-wrapper { background:linear-gradient(180deg,#fbfdfb,#fff); border-radius:12px; }
+        .evolution--executive .evolution__coverage-strip--detailed { height:auto; min-height:72px; align-items:stretch; gap:8px; padding:8px; background:#f7faf8; border:1px solid #e1e9e3; border-radius:12px; }
+        .evolution--executive .evolution__coverage-day--detailed { display:flex; flex-direction:column; justify-content:center; align-items:center; gap:5px; min-width:0; padding:6px 3px; }
+        .evolution--executive .evolution__coverage-fraction { color:#243c2e; font-size:11px; font-weight:800; }
+        .evolution--executive .evolution__coverage-date { color:#77847c; font-size:10px; text-transform:capitalize; }
+        .evolution--executive .evolution__coverage-dot { width:72%; max-width:72px; height:7px; border-radius:99px; }
+        .evolution--executive .evolution__summary { gap:10px; }
+        .evolution--executive .evolution__stat { border-radius:10px; background:#fbfdfb; }
+        @media(max-width:700px){ .evolution--executive .evolution__coverage-fraction{font-size:9px}.evolution--executive .evolution__coverage-date{display:none} }
+      `}</style>
       <div className="evolution__header">
         <div>
           <p className="evolution__eyebrow">Comportamento do período</p>
@@ -249,14 +261,16 @@ export function DailyEvolution({ daily }: Props) {
               </span>
             </div>
 
-            <div className="evolution__coverage-strip">
+            <div className="evolution__coverage-strip evolution__coverage-strip--detailed">
               {visibleDays.map((point) => (
                 <span
                   key={point.date}
-                  className="evolution__coverage-day"
+                  className="evolution__coverage-day evolution__coverage-day--detailed"
                   title={`${formatBrDate(point.date)} — ${coverageLabel(point.state)}`}
                 >
+                  <span className="evolution__coverage-fraction">{point.submitted}/{point.expected}</span>
                   <span className={`evolution__coverage-dot ${coverageColor(point.state)}`} />
+                  <span className="evolution__coverage-date">{weekdayShort(point.date)} {String(fromIsoDate(point.date).getDate()).padStart(2, '0')}</span>
                 </span>
               ))}
             </div>
