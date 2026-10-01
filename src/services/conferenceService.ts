@@ -23,7 +23,7 @@ import {
   type PendingJustification,
 } from '@/domain/pendingJustification';
 import { PENDING_REASON_ID } from '@/data/absenceReasons';
-import { businessNow, formatBrDate, nowIso, toIsoDate } from '@/utils/date';
+import { businessNow, formatBrDate, nowIso, shiftIsoDate, toIsoDate } from '@/utils/date';
 import { monthEndIso, monthStartIso } from '@/domain/referenceWindow';
 
 export class ConferenceLockedError extends Error {
@@ -221,8 +221,12 @@ export async function loadStoreConferences(
   today: Date = businessNow(),
 ): Promise<StoreConferencesSnapshot> {
   const todayIso = toIsoDate(today);
+  // O histórico precisa cobrir também a janela operacional anterior ao mês.
+  // No dia 01, isso inclui 30/09; sem isso uma conferência já existente de D-1
+  // pareceria ausente e poderia ser recriada/ignorada pela interface.
+  const windowStart = shiftIsoDate(todayIso, -7);
   const conferences = await adapter().listConferences(storeId, limit, {
-    start: monthStartIso(todayIso),
+    start: windowStart < monthStartIso(todayIso) ? windowStart : monthStartIso(todayIso),
     end: monthEndIso(todayIso),
   });
   return {
