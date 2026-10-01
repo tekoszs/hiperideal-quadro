@@ -86,7 +86,10 @@ export function useConferenceDates({ storeId, today }: Params) {
     jaEscolheu.current = true;
     const currentDates = monthlyReferenceDates(history, mesAtual, agora);
     const elegiveis = currentDates.filter((info) => info.date < hoje);
-    setSelected(suggestedReferenceDate(elegiveis, agora));
+    // No primeiro dia do mês ainda não existe D-1 dentro do mês atual.
+    // Abrir o pré-registro de hoje evita cair no mês anterior, que é somente
+    // leitura pela regra mensal, e impede a tela de ficar presa no carregamento.
+    setSelected(elegiveis.length > 0 ? suggestedReferenceDate(elegiveis, agora) : hoje);
   }, [history, dates, agora]);
 
   const bounds = useMemo(() => ({ min: `${visibleMonth}-01`, max: `${visibleMonth}-31` }), [visibleMonth]);
