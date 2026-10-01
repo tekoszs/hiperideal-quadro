@@ -342,7 +342,7 @@ export function SupervisorNetworkDashboardPage({ profile, onBack, onOpenConferen
                             </button>
                           ) : 'Sem loja crítica'}
                         </strong>
-                        <span>{topStore ? `${topStore.share.toFixed(1).replace('.', ',')}% das faltas registradas.` : 'Nenhuma falta registrada.'}</span>
+                        <span>{topStore ? `${(topStore.share ?? 0).toFixed(1).replace('.', ',')}% das faltas registradas.` : 'Nenhuma falta registrada.'}</span>
                       </div>
                       <div className="supervisor-attention__card">
                         <strong>
