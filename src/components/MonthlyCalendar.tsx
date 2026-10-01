@@ -7,6 +7,7 @@ import {
   monthlyProgress,
   monthStartIso,
   shiftMonthIso,
+  isMonthlyRecordableDate,
   type ReferenceDateInfo,
 } from '@/domain/referenceWindow';
 import { formatLongBrDate, fromIsoDate } from '@/utils/date';
@@ -108,7 +109,12 @@ export function MonthlyCalendar({
           const isToday = date === today;
           const isFuture = date > today;
           const isPastMonth = month < currentMonth;
-          const canSelect = !disabled && !isFutureMonth && !isFuture && (isCurrentMonth || isPastMonth && info.status !== 'MISSING');
+          const isOperationalPastDate = isPastMonth && isMonthlyRecordableDate(date, fromIsoDate(today));
+          const canSelect =
+            !disabled &&
+            !isFutureMonth &&
+            !isFuture &&
+            (isCurrentMonth || (isPastMonth && (info.status !== 'MISSING' || isOperationalPastDate)));
           const state = isToday ? 'PRE_REGISTRATION' : info.status;
           const tone = isToday
             ? 'today'
