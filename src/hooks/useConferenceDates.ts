@@ -70,10 +70,23 @@ export function useConferenceDates({ storeId, today }: Params) {
   useEffect(() => {
     jaEscolheu.current = false;
     setHistory(null);
-    setSelected(null);
-    setMonth(null);
+
+    // Na virada do mês, D-1 é conhecido sem depender do histórico.
+    // Abrimos imediatamente (ex.: 01/10 -> 30/09) e carregamos histórico/
+    // justificativas em segundo plano, evitando spinner infinito.
+    const ontem = shiftIsoDate(hoje, -1);
+    const virouMes = ontem.slice(0, 7) !== hoje.slice(0, 7);
+    if (virouMes) {
+      setSelected(ontem);
+      setMonth(ontem.slice(0, 7));
+      jaEscolheu.current = true;
+    } else {
+      setSelected(null);
+      setMonth(null);
+    }
+
     void carregar();
-  }, [carregar]);
+  }, [carregar, hoje]);
 
   const mesAtual = useMemo(() => monthStartIso(hoje).slice(0, 7), [hoje]);
   const visibleMonth = month ?? mesAtual;
@@ -114,13 +127,19 @@ export function useConferenceDates({ storeId, today }: Params) {
     /** `min` e `max` do seletor de data. */
     bounds,
     month: visibleMonth,
-    isReadOnlyMonth: visibleMonth < mesAtual,
+    // Mês anterior é consulta, exceto D-1 na virada do mês, que continua
+    // operacional para regularização.
+    isReadOnlyMonth:
+      visibleMonth < mesAtual &&
+      selected !== shiftIsoDate(hoje, -1),
     /** A data de hoje, para o botão de pré-registro. */
     today: hoje,
     /** A tela está no pré-registro de hoje? */
     isPreRegistration: selected !== null && isPreRegistrationDate(selected, agora),
     error,
-    ready: history !== null && selected !== null,
+    // A conferência pode abrir assim que a data é conhecida. O histórico é
+    // complementar e pode terminar de carregar em segundo plano.
+    ready: selected !== null,
 
     selectDate: useCallback((date: string) => setSelected(date), []),
     selectMonth: useCallback((nextMonth: string) => {
