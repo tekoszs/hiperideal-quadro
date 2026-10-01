@@ -132,7 +132,7 @@ export function useConferenceDates({ storeId, today }: Params) {
     // operacional para regularização.
     isReadOnlyMonth:
       visibleMonth < mesAtual &&
-      !isMonthlyRecordableDate(selected, agora),
+      (selected === null || !isMonthlyRecordableDate(selected, agora)),
     /** A data de hoje, para o botão de pré-registro. */
     today: hoje,
     /** A tela está no pré-registro de hoje? */
