@@ -12,7 +12,7 @@ import {
 import type { PendingJustification } from '@/domain/pendingJustification';
 import { loadStoreConferences } from '@/services/conferenceService';
 import { HISTORY_LIMIT } from '@/lib/constants';
-import { businessNow, toIsoDate } from '@/utils/date';
+import { businessNow, shiftIsoDate, toIsoDate } from '@/utils/date';
 
 interface Params {
   storeId: string | null;
@@ -85,8 +85,15 @@ export function useConferenceDates({ storeId, today }: Params) {
   useEffect(() => {
     if (jaEscolheu.current || history === null) return;
     jaEscolheu.current = true;
-    // A janela operacional atravessa a virada do mês. Em 01/10, por exemplo,
-    // D-1 continua sendo 30/09 e precisa permanecer regularizável.
+    // Na virada do mês, D-1 precisa ter prioridade: em 01/10 abre 30/09,
+    // em vez de saltar para uma pendência mais antiga da janela.
+    const ontem = shiftIsoDate(hoje, -1);
+    const virouMes = ontem.slice(0, 7) !== hoje.slice(0, 7);
+    if (virouMes) {
+      setMonth(ontem.slice(0, 7));
+      setSelected(ontem);
+      return;
+    }
     const janela = buildReferenceDates(history, agora);
     setSelected(suggestedReferenceDate(janela, agora));
   }, [history, dates, agora]);
