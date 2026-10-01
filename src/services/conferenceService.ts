@@ -224,9 +224,14 @@ export async function loadStoreConferences(
   // O histórico precisa cobrir também a janela operacional anterior ao mês.
   // No dia 01, isso inclui 30/09; sem isso uma conferência já existente de D-1
   // pareceria ausente e poderia ser recriada/ignorada pela interface.
-  const windowStart = shiftIsoDate(todayIso, -7);
-  const conferences = await adapter().listConferences(storeId, limit, {
-    start: windowStart < monthStartIso(todayIso) ? windowStart : monthStartIso(todayIso),
+  // Carrega o mês anterior COMPLETO + o mês atual. Isso permite consultar o
+  // fechamento mensal e preserva os estados reais do calendário (enviada,
+  // rascunho, pendente) na virada do mês. A regra de edição continua separada:
+  // somente a janela operacional pode ser alterada.
+  const previousMonthDate = shiftIsoDate(monthStartIso(todayIso), -1);
+  const historyStart = monthStartIso(previousMonthDate);
+  const conferences = await adapter().listConferences(storeId, Math.max(limit, 70), {
+    start: historyStart,
     end: monthEndIso(todayIso),
   });
   return {
