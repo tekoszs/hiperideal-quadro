@@ -132,21 +132,23 @@ export function monthlyReferenceDates(
     });
 }
 
-/** Mês atual: o gerente grava de 01 até hoje; envio termina em ontem. */
+/**
+ * A gravação e o envio seguem a janela operacional de 7 dias, inclusive quando
+ * ela atravessa a virada do mês. Assim, em 01/10 o dia 30/09 continua
+ * regularizável; datas antigas fora da janela permanecem bloqueadas.
+ */
 export function isMonthlyRecordableDate(
   iso: string,
   today: Date = businessNow(),
 ): boolean {
-  const hoje = toIsoDate(today);
-  return iso >= monthStartIso(hoje) && iso <= hoje;
+  return isRecordableReferenceDate(iso, today);
 }
 
 export function isMonthlySubmittableDate(
   iso: string,
   today: Date = businessNow(),
 ): boolean {
-  const hoje = toIsoDate(today);
-  return iso >= monthStartIso(hoje) && iso < hoje;
+  return isSelectableReferenceDate(iso, today);
 }
 
 /** `2026-09-05` -> `SÁB` */
