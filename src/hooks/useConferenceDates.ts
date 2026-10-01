@@ -7,6 +7,7 @@ import {
   nextPendingAfter,
   pendingReferenceDates,
   suggestedReferenceDate,
+  buildReferenceDates,
 } from '@/domain/referenceWindow';
 import type { PendingJustification } from '@/domain/pendingJustification';
 import { loadStoreConferences } from '@/services/conferenceService';
@@ -84,12 +85,10 @@ export function useConferenceDates({ storeId, today }: Params) {
   useEffect(() => {
     if (jaEscolheu.current || history === null) return;
     jaEscolheu.current = true;
-    const currentDates = monthlyReferenceDates(history, mesAtual, agora);
-    const elegiveis = currentDates.filter((info) => info.date < hoje);
-    // No primeiro dia do mês ainda não existe D-1 dentro do mês atual.
-    // Abrir o pré-registro de hoje evita cair no mês anterior, que é somente
-    // leitura pela regra mensal, e impede a tela de ficar presa no carregamento.
-    setSelected(elegiveis.length > 0 ? suggestedReferenceDate(elegiveis, agora) : hoje);
+    // A janela operacional atravessa a virada do mês. Em 01/10, por exemplo,
+    // D-1 continua sendo 30/09 e precisa permanecer regularizável.
+    const janela = buildReferenceDates(history, agora);
+    setSelected(suggestedReferenceDate(janela, agora));
   }, [history, dates, agora]);
 
   const bounds = useMemo(() => ({ min: `${visibleMonth}-01`, max: `${visibleMonth}-31` }), [visibleMonth]);
