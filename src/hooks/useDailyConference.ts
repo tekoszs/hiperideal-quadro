@@ -81,7 +81,10 @@ export function useDailyConference({
   const [lastSavedAt, setLastSavedAt] = useState<string | null>(null);
 
   useEffect(() => {
-    if (!storeId || !referenceDate || positions.length === 0) return;
+    if (!storeId || !referenceDate || positions.length === 0) {
+      setLoading(false);
+      return;
+    }
     let cancelled = false;
 
     async function load() {
