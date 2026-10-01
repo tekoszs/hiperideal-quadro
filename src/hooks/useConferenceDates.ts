@@ -149,8 +149,19 @@ export function useConferenceDates({ storeId, today }: Params) {
       const existing = history
         ?.filter((entry) => entry.referenceDate.slice(0, 7) === normalizedMonth)
         .sort((a, b) => a.referenceDate.localeCompare(b.referenceDate));
+
+      // Mês atual vazio não é estado de carregamento: hoje é um pré-registro
+      // válido. Em 01/10, ao voltar de setembro para outubro, abre 01/10 para
+      // lançar ocorrências e salvar rascunho mesmo sem registro pré-existente.
+      if (normalizedMonth === mesAtual) {
+        const todayEntry = existing?.find((entry) => entry.referenceDate === hoje);
+        setSelected(todayEntry?.referenceDate ?? hoje);
+        return;
+      }
+
+      // Meses anteriores são consulta: abre a conferência existente mais antiga.
       setSelected(existing?.[0]?.referenceDate ?? null);
-    }, [history]),
+    }, [history, hoje, mesAtual]),
 
     /** Recarrega o histórico — chamado depois de salvar ou enviar. */
     refresh: carregar,
