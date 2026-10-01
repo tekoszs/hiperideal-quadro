@@ -123,15 +123,14 @@ export async function loadOrCreateConference(params: {
   // O pré-registro de hoje não pode deixar a operação presa se a leitura de
   // uma conferência ainda inexistente demorar no Supabase. Após 4s abrimos um
   // rascunho local zerado; ao salvar, a RPC faz o upsert transacional normal.
-  const fallback = Symbol('conference-load-timeout');
   const existingOrTimeout = await Promise.race([
     adapter().getConference(params.storeId, params.referenceDate),
-    new Promise<typeof fallback>((resolve) => {
-      window.setTimeout(() => resolve(fallback), 4000);
+    new Promise<null>((resolve) => {
+      setTimeout(() => resolve(null), 4000);
     }),
   ]);
 
-  if (existingOrTimeout !== fallback && existingOrTimeout) {
+  if (existingOrTimeout) {
     return existingOrTimeout.status === 'SUBMITTED'
       ? existingOrTimeout
       : reconcileItems(existingOrTimeout, params.positions);
