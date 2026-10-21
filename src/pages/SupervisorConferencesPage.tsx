@@ -108,6 +108,10 @@ export function SupervisorConferencesPage({ profile, onBack, initialDate }: Prop
             </div>
           )}
 
+          <div className="quadro-supervisor-intro">
+            <div><strong>Acompanhamento das lojas</strong><p>Confira primeiro as pendências e depois consulte os envios confirmados.</p></div>
+            <div className="quadro-supervisor-intro__counters"><span><strong>{Math.max(0, totalRows - submittedRows.length)}</strong> lojas pendentes</span><span><strong>{submittedRows.length}</strong> enviadas</span></div>
+          </div>
           {summary && <NetworkSummaryCards summary={summary} />}
 
           <details className="submitted-stores quadro-submitted-collapse" aria-label="Lojas que já enviaram a conferência">
