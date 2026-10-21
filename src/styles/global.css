@@ -6075,20 +6075,29 @@ button.ranking__button:hover {
 @media(max-width:700px){.quadro-supervisor-intro{padding:16px}.quadro-supervisor-intro__counters{width:100%}.quadro-supervisor-intro__counters span{flex:1;min-width:100px}.quadro-confirm-modal .modal__body,.quadro-confirm-modal .modal__head,.quadro-confirm-modal .modal__foot{padding:15px}}
 
 
-/* Cabeçalho corporativo: composição definitiva, sem sobreposições */
-.app-header{background:#075433 url('/quadro-header-art.svg') center/cover no-repeat;border:0;color:#fff;overflow:hidden}
-.app-header__inner{width:100%;max-width:1600px;min-height:176px;padding:24px clamp(22px,4vw,58px);display:grid;grid-template-columns:minmax(270px,38%) minmax(180px,1fr) minmax(230px,285px);align-items:center;gap:24px}
-.app-header__brand-block{min-width:0;max-width:400px}
-.app-header__brand{font-family:inherit;font-size:clamp(35px,3.8vw,55px);font-style:italic;font-weight:900;letter-spacing:-.065em;line-height:1;color:#348b23;text-shadow:none;margin:0}
-.app-header__subtitle{font-size:clamp(12px,1.2vw,16px);font-weight:650;color:#173f2a;margin-top:12px}
-.app-header__visual{display:flex;flex-direction:column;gap:5px;justify-self:center;min-width:0;max-width:320px;color:#fff;padding-left:12px;border-left:3px solid #a5e26f}
-.app-header__visual-label{font-size:clamp(17px,1.6vw,22px);font-weight:800;line-height:1.2;text-shadow:0 2px 4px #00371e55}
-.app-header__visual-desc{font-size:clamp(12px,1vw,14px);font-weight:500;color:#daf5df}
-.app-header__meta{display:flex;align-items:center;gap:12px;min-width:0;justify-self:end;background:#003f2aaa;border:1px solid #ffffff1f;border-radius:13px;padding:12px 13px;backdrop-filter:blur(6px)}
+
+/* Banner Time Ideal: quatro zonas estáveis, sem controles incorporados à arte */
+.app-header{background:#075333;border:0;color:#fff;overflow:hidden;position:relative}
+.app-header__inner{max-width:none;width:100%;min-height:210px;display:grid;grid-template-columns:minmax(220px,28%) minmax(180px,31%) minmax(180px,22%) minmax(190px,19%);align-items:stretch;gap:0;padding:0}
+.app-header__brand-block{background:#fff;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;max-width:none;padding:20px clamp(20px,3vw,56px);position:relative}
+.app-header__brand-block:after{content:'';position:absolute;right:-36px;top:0;width:72px;height:100%;transform:skew(-17deg);background:#ffffffcc;z-index:1;pointer-events:none}
+.app-header__brand{font-size:clamp(32px,3.2vw,54px);font-style:italic;font-weight:900;letter-spacing:-.06em;line-height:1;color:#348c27;margin:0;position:relative;z-index:2}
+.app-header__subtitle{font-size:clamp(12px,1.15vw,16px);font-weight:700;color:#233c2c;margin-top:12px;position:relative;z-index:2}
+.app-header__showcase{position:relative;overflow:hidden;background:linear-gradient(150deg,#44301c,#c49b60 34%,#294632 57%,#121e15);display:flex;align-items:center;justify-content:center}
+.app-header__showcase:before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(90deg,transparent 0 48px,#ffffff12 49px 51px,transparent 53px 108px),linear-gradient(180deg,#0c1e16aa,transparent 50%,#17271899)}
+.app-header__store-art{padding:10px 24px;background:linear-gradient(105deg,#39291f,#62442b);border:8px solid #bfa178;box-shadow:0 25px 40px #0007;position:relative;transform:perspective(500px) rotateY(-6deg)}
+.app-header__store-art span{color:#42ce55;text-shadow:0 3px 8px #001c0e;font-size:clamp(20px,2.7vw,42px);font-style:italic;font-weight:900}
+.app-header__campaign{display:flex;align-items:center;justify-content:center;gap:5px;background:linear-gradient(130deg,#077b3f,#004e2c);padding:15px;color:#fff;min-width:0}
+.app-header__campaign-hash{font-size:clamp(80px,10vw,160px);font-weight:900;line-height:1;color:#5bc84d;letter-spacing:-.1em}
+.app-header__campaign-words{display:flex;flex-direction:column;font-size:clamp(13px,1.4vw,20px);line-height:1;font-style:italic}
+.app-header__campaign-words strong{color:#42c35e;font-size:clamp(27px,3.3vw,53px);letter-spacing:-.07em}
+.app-header__campaign-words b{color:#fff;font-size:clamp(27px,3.3vw,53px);letter-spacing:-.07em}
+.app-header__campaign-words small{align-self:flex-end;color:#82d88a;font-size:12px;margin-top:4px}
+.app-header__meta{display:flex;align-items:center;justify-content:center;gap:10px;padding:14px;background:linear-gradient(120deg,#006a38,#004b2b);min-width:0;margin:0}
 .app-header__lines{text-align:right;min-width:0}
 .app-header__store,.app-header__user{color:#fff;font-size:13px}
-.app-header__code,.app-header__role{color:#d2f0dc}
-.app-header__signout{background:#fff;color:#09643a;border:0;border-radius:9px;min-height:40px;padding:8px 12px;font-weight:800}
-@media(max-width:1150px){.app-header__inner{grid-template-columns:minmax(230px,45%) minmax(230px,1fr)}.app-header__visual{display:none}.app-header__meta{grid-column:2}}
-@media(max-width:700px){.app-header__inner{display:flex;flex-wrap:wrap;justify-content:space-between;min-height:140px;padding:17px;gap:10px}.app-header__brand-block{flex:1 1 190px}.app-header__brand{font-size:clamp(30px,6vw,40px)}.app-header__subtitle{font-size:12px}.app-header__meta{padding:9px;gap:8px;margin-left:auto}.app-header__signout{min-height:36px}.app-header__store,.app-header__user{font-size:12px}}
-@media(max-width:470px){.app-header__inner{flex-direction:column;align-items:stretch}.app-header__meta{align-self:flex-end;max-width:100%}}
+.app-header__code,.app-header__role{color:#dbf3e3}
+.app-header__signout{background:#fff;color:#08663b;border:0;border-radius:9px;padding:10px 14px;min-height:40px;flex-shrink:0;font-weight:800}
+@media(max-width:1150px){.app-header__inner{grid-template-columns:34% 34% 32%}.app-header__campaign{display:none}}
+@media(max-width:760px){.app-header__inner{grid-template-columns:1fr 1fr;min-height:0}.app-header__brand-block{min-height:130px}.app-header__brand-block:after{display:none}.app-header__showcase{min-height:130px}.app-header__meta{grid-column:1/-1;padding:12px;justify-content:flex-end}}
+@media(max-width:460px){.app-header__inner{grid-template-columns:1fr}.app-header__brand-block{min-height:115px}.app-header__showcase{display:none}.app-header__meta{grid-column:1}}
