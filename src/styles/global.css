@@ -6073,3 +6073,18 @@ button.ranking__button:hover {
 .page:has(.quadro-workflow) .position-row__main{gap:16px}
 .page:has(.quadro-workflow) .position-row__name{font-size:14px}
 @media(max-width:700px){.quadro-supervisor-intro{padding:16px}.quadro-supervisor-intro__counters{width:100%}.quadro-supervisor-intro__counters span{flex:1;min-width:100px}.quadro-confirm-modal .modal__body,.quadro-confirm-modal .modal__head,.quadro-confirm-modal .modal__foot{padding:15px}}
+
+/* Arte corporativa responsiva da Conferência Diária de Quadro */
+.app-header{position:relative;background:#075433 url('/quadro-header-art.svg') center center / cover no-repeat!important;border-bottom:0!important;overflow:hidden}
+.app-header__inner{max-width:1600px!important;min-height:205px;padding:28px clamp(20px,4vw,62px)!important;align-items:center!important;gap:clamp(15px,2.5vw,34px)!important}
+.app-header__brand-block{position:relative;z-index:1;flex:1 1 285px;max-width:415px}
+.app-header__brand{font-size:clamp(32px,4vw,55px)!important;font-weight:900!important;line-height:1!important;letter-spacing:-.055em!important;font-style:italic;color:#348d25!important;text-shadow:none!important}
+.app-header__subtitle{font-size:clamp(12px,1.35vw,17px)!important;margin-top:12px!important;color:#263e2d!important;font-weight:650!important}
+.app-header__message{display:flex;flex-direction:column;align-items:flex-start;gap:4px;max-width:290px;flex:1 1 205px;position:relative;z-index:1;margin-left:auto;color:#fff;font-size:16px;text-shadow:0 2px 5px #00351d55}
+.app-header__message strong{font-size:clamp(16px,1.8vw,23px);line-height:1.2}
+.app-header__meta{position:relative;z-index:1;margin-left:auto;display:flex;align-items:center;gap:14px!important;max-width:325px;background:#003f2670;padding:12px 14px;border-radius:15px;backdrop-filter:blur(5px)}
+.app-header__lines{text-align:right}.app-header__store,.app-header__user{color:#fff!important}.app-header__code,.app-header__role{color:#dcf4e3!important}
+.app-header__signout{background:#fff!important;color:#16623d!important;border:1px solid #d2eddb!important;border-radius:9px!important;min-height:40px}
+@media(max-width:1150px){.app-header__message{display:none}.app-header__meta{margin-left:auto}}
+@media(max-width:730px){.app-header{background-position:42% center}.app-header__inner{min-height:155px;padding:18px!important;gap:12px!important}.app-header__brand-block{flex:1 1 180px}.app-header__brand{font-size:clamp(25px,6vw,38px)!important}.app-header__subtitle{font-size:12px!important}.app-header__meta{background:#00472cd9;padding:9px;gap:8px!important}.app-header__store,.app-header__user{font-size:12px!important}.app-header__signout{min-height:35px;padding:7px 10px!important}}
+@media(max-width:460px){.app-header__inner{align-items:flex-start!important;flex-direction:column;min-height:190px}.app-header__meta{margin-left:0;align-self:flex-end;max-width:100%}.app-header__brand{font-size:34px!important}}
