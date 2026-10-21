@@ -55,6 +55,7 @@ export function SupervisorArea({ profile }: Props) {
             ? (getDistrict(profile.districtId)?.name ?? 'Distrito')
             : null
         }
+        onHome={() => setView('HOME')}
         onNetwork={() => setView('NETWORK')}
         onConferences={() => openConferences(undefined)}
         onAdministration={() => setView('ADMINISTRATION')}
@@ -86,6 +87,7 @@ interface NavProps {
   networkLabel: string;
   /** Distrito fixo do perfil, quando houver. Informativo. */
   scopeLabel: string | null;
+  onHome: () => void;
   onNetwork: () => void;
   onConferences: () => void;
   onAdministration: () => void;
@@ -97,6 +99,7 @@ function SupervisorNav({
   current,
   networkLabel,
   scopeLabel,
+  onHome,
   onNetwork,
   onConferences,
   onAdministration,
@@ -105,6 +108,7 @@ function SupervisorNav({
   return (
     <nav className="supervisor-nav" aria-label="Áreas do supervisor">
       <div className="supervisor-nav__tabs">
+        <button type="button" className="supervisor-nav__tab" onClick={onHome} aria-label="Voltar ao início da supervisão">Início</button>
         <button
           type="button"
           className={`supervisor-nav__tab${current === 'NETWORK' ? ' supervisor-nav__tab--on' : ''}`}
