@@ -176,23 +176,6 @@ export function ManagerConferencePage({ profile, onStoreLoaded }: Props) {
   return (
     <>
       <main className="page">
-        {!carregando && catalog.store && conference && (
-          <div className="page-hero">
-            <h2 className="page-hero__title">Conferência Diária de Quadro</h2>
-            <p className="page-hero__subtitle">
-              {catalog.store.name} · Código {catalog.store.code}
-            </p>
-            <div className="page-hero__meta">
-              <span className="page-hero__meta-item">
-                {formatLongBrDate(conference.referenceDate)}
-              </span>
-              <span className={`page-hero__badge page-hero__badge--${estadoDoTitulo === 'SUBMITTED' ? 'submitted' : 'draft'}`}>
-                {CONFERENCE_STATUS_WORD[estadoDoTitulo]}
-              </span>
-            </div>
-          </div>
-        )}
-
         {carregando ? (
           <p className="state">Carregando conferência...</p>
         ) : (
@@ -266,6 +249,7 @@ export function ManagerConferencePage({ profile, onStoreLoaded }: Props) {
               </div>
             )}
 
+            <div className="quadro-workflow" aria-label="Etapas da conferência"><span className="quadro-workflow__active">1. Escolher data</span><span className="quadro-workflow__active">2. Conferir faltas e folgas</span><span>3. Salvar ou finalizar</span></div>
             <SummaryCards summary={summary} />
 
             {feedback && (
@@ -355,7 +339,7 @@ export function ManagerConferencePage({ profile, onStoreLoaded }: Props) {
               </div>
             )}
 
-            <HistorySection entries={datas.history} />
+            <details className="quadro-history-collapse"><summary>Consultar histórico de conferências <span>Expandir histórico</span></summary><HistorySection entries={datas.history} /></details>
 
             <ConfirmSubmitModal
               open={confirmOpen}
