@@ -6077,19 +6077,99 @@ button.ranking__button:hover {
 
 
 
-/* Cabeçalho limpo provisório: sem imitar fotografia ausente */
-.app-header{background:linear-gradient(110deg,#ffffff 0%,#ffffff 34%,#08773e 34.1%,#004d2f 100%);border:0;color:#fff}
-.app-header__inner{max-width:1600px;min-height:150px;padding:18px clamp(18px,3vw,50px);display:grid;grid-template-columns:minmax(270px,36%) minmax(160px,1fr) minmax(230px,285px);align-items:center;gap:20px}
-.app-header__brand-block{max-width:none;min-width:0}
-.app-header__brand{margin:0;color:#358d25;font-size:clamp(31px,3.4vw,49px);font-style:italic;font-weight:900;letter-spacing:-.06em;line-height:1}
-.app-header__subtitle{margin-top:9px;color:#173e29;font-weight:700;font-size:clamp(12px,1.1vw,16px)}
-.app-header__campaign{display:flex;flex-direction:column;gap:5px;justify-self:center;color:#fff}
-.app-header__campaign strong{font-weight:850;font-size:clamp(19px,2vw,29px)}
-.app-header__campaign span{font-size:13px;color:#d1f3dc}
-.app-header__meta{margin:0;justify-self:end;display:flex;align-items:center;gap:12px;background:#003f2877;border-radius:12px;padding:12px 14px}
-.app-header__lines{text-align:right}
-.app-header__store,.app-header__user{color:#fff;font-size:13px}
-.app-header__code,.app-header__role{color:#e1f6e7}
-.app-header__signout{background:#fff;color:#08643a;border:0;border-radius:9px;min-height:40px;padding:8px 13px;font-weight:800}
-@media(max-width:1000px){.app-header__inner{grid-template-columns:minmax(220px,45%) 1fr}.app-header__campaign{display:none}}
-@media(max-width:640px){.app-header{background:linear-gradient(180deg,#fff 0%,#fff 50%,#075b38 50.1%)}.app-header__inner{display:flex;flex-direction:column;align-items:stretch;gap:18px;min-height:0;padding:18px}.app-header__meta{align-self:flex-end;max-width:100%}}
+/* Cabeçalho Hiperideal com imagem original aprovada (public/download.jpg). */
+.quadro-banner {
+  width: 100%;
+  margin: 0;
+  background: #fff;
+  color: #163b28;
+  border-bottom: 1px solid #dce9e0;
+}
+.quadro-banner__artwork { display: block; background: #006339; width: 100%; overflow: hidden; }
+.quadro-banner__image {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1955 / 251;
+  object-fit: contain;
+}
+.quadro-banner__mobile-brand { display: none; }
+.quadro-banner__account {
+  min-height: 56px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 22px;
+  padding: 10px clamp(18px, 4vw, 58px);
+  background: #f8fbf9;
+}
+.quadro-banner__account-details {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px 26px;
+  text-align: right;
+}
+.quadro-banner__store,
+.quadro-banner__user {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  gap: 1px;
+  font-size: 12px;
+}
+.quadro-banner__store strong,
+.quadro-banner__user strong {
+  font-size: 13px;
+  color: #135832;
+  font-weight: 750;
+  overflow-wrap: anywhere;
+}
+.quadro-banner__store span,
+.quadro-banner__user span { color: #5e7567; }
+.quadro-banner__signout {
+  border: 1px solid #b7d8c4;
+  border-radius: 9px;
+  background: #fff;
+  color: #08703b;
+  padding: 9px 16px;
+  font-weight: 800;
+  text-transform: uppercase;
+  font-size: 12px;
+  min-height: 40px;
+  flex-shrink: 0;
+}
+.quadro-banner__signout:hover { background: #e9f7ee; border-color: #66b488; }
+.quadro-banner__signout:focus-visible { outline: 3px solid #08703b; outline-offset: 2px; }
+@media (max-width: 760px) {
+  .quadro-banner__mobile-brand {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 13px 18px 10px;
+    background: #fff;
+    color: #318c27;
+  }
+  .quadro-banner__mobile-brand strong {
+    font-size: 30px;
+    font-style: italic;
+    letter-spacing: -.05em;
+    line-height: 1.15;
+  }
+  .quadro-banner__mobile-brand span { font-size: 12px; color: #284933; font-weight: 650; }
+  .quadro-banner__image {
+    width: 100%;
+    height: 112px;
+    aspect-ratio: auto;
+    object-fit: cover;
+    object-position: 56% 50%;
+  }
+  .quadro-banner__account { padding: 11px 17px; gap: 12px; }
+  .quadro-banner__account-details { gap: 9px 14px; }
+}
+@media (max-width: 440px) {
+  .quadro-banner__image { height: 90px; }
+  .quadro-banner__account-details { flex-direction: column; align-items: flex-end; gap: 5px; }
+  .quadro-banner__signout { padding: 8px 12px; }
+}
