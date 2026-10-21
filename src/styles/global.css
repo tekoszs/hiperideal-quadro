@@ -5965,3 +5965,22 @@ button.ranking__button:hover {
     margin-left: 0;
   }
 }
+
+/* UX 2026: conferência clara, hierarquia e histórico sob demanda */
+.quadro-workflow{display:flex;flex-wrap:wrap;gap:10px;align-items:center;padding:12px 16px;border-radius:12px;background:#f0f7f3;border:1px solid #d2e7d9;color:#4b6358;font-size:13px;font-weight:600}
+.quadro-workflow span{display:inline-flex;align-items:center;gap:7px}
+.quadro-workflow span+span::before{content:'›';font-size:20px;color:#9db1a6;margin-right:5px}
+.quadro-workflow__active{color:#116c3b}
+.quadro-history-collapse{background:var(--hi-surface);border:1px solid var(--hi-border);border-radius:var(--hi-radius-lg);overflow:hidden}
+.quadro-history-collapse>summary{display:flex;align-items:center;justify-content:space-between;gap:12px;cursor:pointer;padding:18px 20px;font-weight:750;list-style:none;color:var(--hi-text)}
+.quadro-history-collapse>summary::-webkit-details-marker{display:none}
+.quadro-history-collapse>summary::before{content:'▸';color:var(--hi-green-600);margin-right:8px}
+.quadro-history-collapse[open]>summary::before{content:'▾'}
+.quadro-history-collapse>summary span{font-size:12px;color:var(--hi-text-muted);font-weight:500}
+.quadro-history-collapse>.section{margin:0;border:0;border-top:1px solid var(--hi-border);border-radius:0;box-shadow:none}
+.page:has(.quadro-workflow){max-width:1280px;gap:18px}
+.page:has(.quadro-workflow) .section__title{text-transform:none;letter-spacing:0;font-size:17px}
+.page:has(.quadro-workflow) .section__head{background:#f8faf9}
+.page:has(.quadro-workflow) .position-group{box-shadow:0 1px 3px #122b1910}
+.page:has(.quadro-workflow) .summary-card{border-radius:12px}
+@media(max-width:650px){.quadro-workflow{display:grid;gap:4px}.quadro-workflow span+span::before{display:none}.quadro-history-collapse>summary span{display:none}}
