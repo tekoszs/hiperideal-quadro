@@ -1,7 +1,7 @@
 import type { Store } from '@/types/domain';
 import type { SessionProfile } from '@/types/auth';
 import { ROLE_LABEL } from '@/types/auth';
-import { APP_NAME, APP_SUBTITLE } from '@/lib/constants';
+import { APP_SUBTITLE } from '@/lib/constants';
 
 interface Props {
   profile: SessionProfile | null;
@@ -30,11 +30,12 @@ export function AppHeader({ profile, store, onSignOut, showSignOut }: Props) {
     <header className="app-header">
       <div className="app-header__inner">
         <div className="app-header__brand-block">
-          <h1 className="app-header__brand">{APP_NAME}</h1>
+          <h1 className="app-header__brand">Hiperideal</h1>
           {/* Redundante com o título do conteúdo no celular, onde some. */}
           <p className="app-header__subtitle">{APP_SUBTITLE}</p>
         </div>
 
+        <div className="app-header__message"><span>Juntos por um</span><strong>Hiperideal mais forte todos os dias.</strong></div>
         <div className="app-header__meta">
           <div className="app-header__lines">
             {store !== undefined && (
