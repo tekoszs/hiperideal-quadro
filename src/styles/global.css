@@ -5984,3 +5984,14 @@ button.ranking__button:hover {
 .page:has(.quadro-workflow) .position-group{box-shadow:0 1px 3px #122b1910}
 .page:has(.quadro-workflow) .summary-card{border-radius:12px}
 @media(max-width:650px){.quadro-workflow{display:grid;gap:4px}.quadro-workflow span+span::before{display:none}.quadro-history-collapse>summary span{display:none}}
+
+/* Conferências do supervisor: primeiro o que falta, depois os envios confirmados. */
+.quadro-submitted-collapse{margin:12px 0;border:1px solid #dbe7df;border-radius:12px;background:#f8fbf9;overflow:hidden}
+.quadro-submitted-summary{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px 16px;cursor:pointer;color:#155b35;font-weight:750;list-style:none}
+.quadro-submitted-summary::-webkit-details-marker{display:none}
+.quadro-submitted-summary::before{content:'▸';margin-right:6px;color:#16803b}
+.quadro-submitted-collapse[open] .quadro-submitted-summary::before{content:'▾'}
+.quadro-submitted-summary strong{font-size:12px;color:#355a44;white-space:nowrap}
+.quadro-submitted-collapse>.submitted-stores__head,.quadro-submitted-collapse>.submitted-stores__list,.quadro-submitted-collapse>.submitted-stores__empty{margin:0 14px 14px}
+.supervisor-nav__tab{min-height:42px}
+@media(max-width:640px){.quadro-submitted-summary{padding:12px;flex-wrap:wrap}.supervisor-nav__tabs{gap:5px}}
