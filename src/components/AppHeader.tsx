@@ -5,61 +5,65 @@ import { APP_SUBTITLE } from '@/lib/constants';
 
 interface Props {
   profile: SessionProfile | null;
-  /** Quando presente, mostra a loja (tela do gerente). */
   store?: Store | null;
   onSignOut: () => void;
   showSignOut: boolean;
 }
 
 /**
- * FASE 4.4 — CABEÇALHO LEVE.
- *
- * O que ele responde é "onde eu estou e quem eu sou", e nada além disso.
- *
- * A DATA SAIU DAQUI. Ela é a informação mais importante da tela, e por isso
- * mora no título do conteúdo (`ConferenceHeading`), em tamanho de título. Ter
- * a data em dois lugares custou um bug na fase 4.3 — o cabeçalho anunciava
- * domingo enquanto o formulário estava no sábado. Com uma fonte só, essa
- * divergência deixa de ser possível em vez de precisar de conserto.
- *
- * Os três blocos rótulo/valor empilhados viraram duas linhas de texto: a mesma
- * informação, com uma fração do peso visual.
+ * Cabeçalho da conferência. A arte aprovada fica em public/download.jpg.
+ * As informações de acesso e a ação de sair permanecem interativas e fora
+ * da imagem, evitando texto duplicado e sobreposição em telas menores.
  */
 export function AppHeader({ profile, store, onSignOut, showSignOut }: Props) {
+  const showAccountBar = store !== undefined || Boolean(profile) || showSignOut;
+
   return (
-    <header className="app-header">
-      <div className="app-header__inner">
-        <div className="app-header__brand-block">
-          <h1 className="app-header__brand">Hiperideal</h1>
-          {/* Redundante com o título do conteúdo no celular, onde some. */}
-          <p className="app-header__subtitle">{APP_SUBTITLE}</p>
-        </div>
+    <header className="quadro-banner">
+      <div className="quadro-banner__mobile-brand">
+        <strong>Hiperideal</strong>
+        <span>{APP_SUBTITLE}</span>
+      </div>
 
-        <div className="app-header__campaign"><strong>Sou do Time Ideal</strong><span>Conferência Diária de Quadro</span></div>
-        <div className="app-header__meta">
-          <div className="app-header__lines">
+      <div className="quadro-banner__artwork">
+        <img
+          className="quadro-banner__image"
+          src="/download.jpg"
+          alt="Hiperideal. Conferência Diária de Quadro. Sou do Time Ideal."
+          width={1955}
+          height={251}
+          decoding="async"
+        />
+      </div>
+
+      {showAccountBar && (
+        <div className="quadro-banner__account">
+          <div className="quadro-banner__account-details">
             {store !== undefined && (
-              <p className="app-header__store">
-                {store ? store.name : '—'}
-                {store && <span className="app-header__code">Código {store.code}</span>}
-              </p>
+              <div className="quadro-banner__store">
+                <strong>{store ? store.name : 'Loja não identificada'}</strong>
+                {store && <span>Código {store.code}</span>}
+              </div>
             )}
-
             {profile && (
-              <p className="app-header__user">
-                {profile.name}
-                <span className="app-header__role">{ROLE_LABEL[profile.role]}</span>
-              </p>
+              <div className="quadro-banner__user">
+                <strong>{profile.name}</strong>
+                <span>{ROLE_LABEL[profile.role]}</span>
+              </div>
             )}
           </div>
 
           {showSignOut && (
-            <button type="button" className="app-header__signout" onClick={onSignOut}>
+            <button
+              type="button"
+              className="quadro-banner__signout"
+              onClick={onSignOut}
+            >
               Sair
             </button>
           )}
         </div>
-      </div>
+      )}
     </header>
   );
 }
