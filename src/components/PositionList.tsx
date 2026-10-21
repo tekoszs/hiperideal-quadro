@@ -32,6 +32,8 @@ export function PositionList({
   onChangeObservation,
 }: Props) {
   const [onlyLaunched, setOnlyLaunched] = useState(false);
+  const [sectorFilter, setSectorFilter] = useState('');
+  const sectors = useMemo(() => [...new Set(positions.map(p => p.sector?.trim()).filter((v): v is string => Boolean(v)))].sort((a,b)=>a.localeCompare(b,'pt-BR')), [positions]);
 
   const itemsByPosition = useMemo(
     () => new Map(items.map((item) => [item.positionId, item])),
@@ -59,12 +61,12 @@ export function PositionList({
           `${position.name} ${position.functionGroup} ${position.sector ?? ''}`,
           search,
         );
-        if (!matches) return false;
+        if (!matches || (sectorFilter && (position.sector?.trim() ?? '') !== sectorFilter)) return false;
         if (!onlyLaunched) return true;
         const item = itemsByPosition.get(position.id);
         return Boolean(item && (item.absenceQuantity > 0 || item.dayOffQuantity > 0));
       }),
-    [positions, search, onlyLaunched, itemsByPosition],
+    [positions, search, onlyLaunched, sectorFilter, itemsByPosition],
   );
 
   const groups = useMemo(() => buildPositionGroups(visiblePositions), [visiblePositions]);
@@ -190,26 +192,18 @@ export function PositionList({
         }
       `}</style>
 
-      <div className="position-list__quick-summary">
-        <div className="position-list__metrics" aria-label="Resumo dos lançamentos">
-          <span className="position-list__metric position-list__metric--danger">
-            Faltas <strong>{totals.absences}</strong>
-          </span>
-          <span className="position-list__metric">
-            Folgas <strong>{totals.daysOff}</strong>
-          </span>
-          <span className="position-list__metric">
-            Com lançamento <strong>{totals.launched}/{positions.length}</strong>
-          </span>
+      <div className="quadro-position-toolbar">
+        <label className="quadro-sector-filter">Setor
+          <select value={sectorFilter} onChange={event => setSectorFilter(event.target.value)} aria-label="Filtrar funções por setor">
+            <option value="">Todos os setores</option>
+            {sectors.map(sector => <option key={sector} value={sector}>{sector}</option>)}
+          </select>
+        </label>
+        <div className="quadro-position-view" role="group" aria-label="Exibir funções">
+          <button type="button" className={!onlyLaunched ? 'is-active' : ''} aria-pressed={!onlyLaunched} onClick={() => setOnlyLaunched(false)}>Todas as funções</button>
+          <button type="button" className={onlyLaunched ? 'is-active' : ''} aria-pressed={onlyLaunched} onClick={() => setOnlyLaunched(true)}>Com ocorrência ({totals.launched})</button>
         </div>
-        <button
-          type="button"
-          className={`position-list__toggle${onlyLaunched ? ' position-list__toggle--active' : ''}`}
-          onClick={() => setOnlyLaunched((current) => !current)}
-          aria-pressed={onlyLaunched}
-        >
-          {onlyLaunched ? '✓ Somente lançados' : 'Mostrar somente lançados'}
-        </button>
+        <span className="quadro-position-count">{visiblePositions.length} de {positions.length} funções</span>
       </div>
 
       <div className="position-list__header" aria-hidden="true">
