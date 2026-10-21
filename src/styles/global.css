@@ -6074,29 +6074,21 @@ button.ranking__button:hover {
 .page:has(.quadro-workflow) .position-row__name{font-size:14px}
 @media(max-width:700px){.quadro-supervisor-intro{padding:16px}.quadro-supervisor-intro__counters{width:100%}.quadro-supervisor-intro__counters span{flex:1;min-width:100px}.quadro-confirm-modal .modal__body,.quadro-confirm-modal .modal__head,.quadro-confirm-modal .modal__foot{padding:15px}}
 
-/* Arte corporativa responsiva da Conferência Diária de Quadro */
-.app-header{position:relative;background:#075433 url('/quadro-header-art.svg') center center / cover no-repeat!important;border-bottom:0!important;overflow:hidden}
-.app-header__inner{max-width:1600px!important;min-height:205px;padding:28px clamp(20px,4vw,62px)!important;align-items:center!important;gap:clamp(15px,2.5vw,34px)!important}
-.app-header__brand-block{position:relative;z-index:1;flex:1 1 285px;max-width:415px}
-.app-header__brand{font-size:clamp(32px,4vw,55px)!important;font-weight:900!important;line-height:1!important;letter-spacing:-.055em!important;font-style:italic;color:#348d25!important;text-shadow:none!important}
-.app-header__subtitle{font-size:clamp(12px,1.35vw,17px)!important;margin-top:12px!important;color:#263e2d!important;font-weight:650!important}
-.app-header__message{display:flex;flex-direction:column;align-items:flex-start;gap:4px;max-width:290px;flex:1 1 205px;position:relative;z-index:1;margin-left:auto;color:#fff;font-size:16px;text-shadow:0 2px 5px #00351d55}
-.app-header__message strong{font-size:clamp(16px,1.8vw,23px);line-height:1.2}
-.app-header__meta{position:relative;z-index:1;margin-left:auto;display:flex;align-items:center;gap:14px!important;max-width:325px;background:#003f2670;padding:12px 14px;border-radius:15px;backdrop-filter:blur(5px)}
-.app-header__lines{text-align:right}.app-header__store,.app-header__user{color:#fff!important}.app-header__code,.app-header__role{color:#dcf4e3!important}
-.app-header__signout{background:#fff!important;color:#16623d!important;border:1px solid #d2eddb!important;border-radius:9px!important;min-height:40px}
-@media(max-width:1150px){.app-header__message{display:none}.app-header__meta{margin-left:auto}}
-@media(max-width:730px){.app-header{background-position:42% center}.app-header__inner{min-height:155px;padding:18px!important;gap:12px!important}.app-header__brand-block{flex:1 1 180px}.app-header__brand{font-size:clamp(25px,6vw,38px)!important}.app-header__subtitle{font-size:12px!important}.app-header__meta{background:#00472cd9;padding:9px;gap:8px!important}.app-header__store,.app-header__user{font-size:12px!important}.app-header__signout{min-height:35px;padding:7px 10px!important}}
-@media(max-width:460px){.app-header__inner{align-items:flex-start!important;flex-direction:column;min-height:190px}.app-header__meta{margin-left:0;align-self:flex-end;max-width:100%}.app-header__brand{font-size:34px!important}}
 
-/* Correção do banner: três zonas independentes, sem texto sobre a arte. */
-.app-header{background-position:center!important}
-.app-header__inner{display:grid!important;grid-template-columns:minmax(260px, 38%) minmax(180px, 1fr) minmax(245px, 290px)!important;max-width:1600px!important;min-height:200px!important;align-items:center!important;gap:18px!important}
-.app-header__brand-block{grid-column:1;max-width:none!important;justify-self:start}
-.app-header__message{grid-column:2;max-width:330px!important;margin:0!important;justify-self:center;padding:12px 14px;border-radius:13px;background:#004a2d96;text-shadow:none}
-.app-header__message span{font-size:15px;color:#f0ffe9}
-.app-header__message strong{font-size:clamp(17px,1.65vw,23px)!important;color:#fff}
-.app-header__meta{grid-column:3;margin-left:0!important;justify-self:end;max-width:290px!important}
-@media(max-width:1150px){.app-header__inner{grid-template-columns:minmax(260px,42%) 1fr!important}.app-header__message{display:none!important}.app-header__meta{grid-column:2}}
-@media(max-width:730px){.app-header__inner{display:flex!important;flex-wrap:wrap!important;justify-content:space-between;min-height:145px!important}.app-header__brand-block{flex:1 1 180px}.app-header__meta{margin-left:auto!important}}
-@media(max-width:460px){.app-header__inner{flex-direction:column!important;align-items:stretch!important}.app-header__meta{align-self:flex-end}}
+/* Cabeçalho corporativo: composição definitiva, sem sobreposições */
+.app-header{background:#075433 url('/quadro-header-art.svg') center/cover no-repeat;border:0;color:#fff;overflow:hidden}
+.app-header__inner{width:100%;max-width:1600px;min-height:176px;padding:24px clamp(22px,4vw,58px);display:grid;grid-template-columns:minmax(270px,38%) minmax(180px,1fr) minmax(230px,285px);align-items:center;gap:24px}
+.app-header__brand-block{min-width:0;max-width:400px}
+.app-header__brand{font-family:inherit;font-size:clamp(35px,3.8vw,55px);font-style:italic;font-weight:900;letter-spacing:-.065em;line-height:1;color:#348b23;text-shadow:none;margin:0}
+.app-header__subtitle{font-size:clamp(12px,1.2vw,16px);font-weight:650;color:#173f2a;margin-top:12px}
+.app-header__visual{display:flex;flex-direction:column;gap:5px;justify-self:center;min-width:0;max-width:320px;color:#fff;padding-left:12px;border-left:3px solid #a5e26f}
+.app-header__visual-label{font-size:clamp(17px,1.6vw,22px);font-weight:800;line-height:1.2;text-shadow:0 2px 4px #00371e55}
+.app-header__visual-desc{font-size:clamp(12px,1vw,14px);font-weight:500;color:#daf5df}
+.app-header__meta{display:flex;align-items:center;gap:12px;min-width:0;justify-self:end;background:#003f2aaa;border:1px solid #ffffff1f;border-radius:13px;padding:12px 13px;backdrop-filter:blur(6px)}
+.app-header__lines{text-align:right;min-width:0}
+.app-header__store,.app-header__user{color:#fff;font-size:13px}
+.app-header__code,.app-header__role{color:#d2f0dc}
+.app-header__signout{background:#fff;color:#09643a;border:0;border-radius:9px;min-height:40px;padding:8px 12px;font-weight:800}
+@media(max-width:1150px){.app-header__inner{grid-template-columns:minmax(230px,45%) minmax(230px,1fr)}.app-header__visual{display:none}.app-header__meta{grid-column:2}}
+@media(max-width:700px){.app-header__inner{display:flex;flex-wrap:wrap;justify-content:space-between;min-height:140px;padding:17px;gap:10px}.app-header__brand-block{flex:1 1 190px}.app-header__brand{font-size:clamp(30px,6vw,40px)}.app-header__subtitle{font-size:12px}.app-header__meta{padding:9px;gap:8px;margin-left:auto}.app-header__signout{min-height:36px}.app-header__store,.app-header__user{font-size:12px}}
+@media(max-width:470px){.app-header__inner{flex-direction:column;align-items:stretch}.app-header__meta{align-self:flex-end;max-width:100%}}
