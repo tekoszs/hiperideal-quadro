@@ -6076,28 +6076,20 @@ button.ranking__button:hover {
 
 
 
-/* Banner Time Ideal: quatro zonas estáveis, sem controles incorporados à arte */
-.app-header{background:#075333;border:0;color:#fff;overflow:hidden;position:relative}
-.app-header__inner{max-width:none;width:100%;min-height:210px;display:grid;grid-template-columns:minmax(220px,28%) minmax(180px,31%) minmax(180px,22%) minmax(190px,19%);align-items:stretch;gap:0;padding:0}
-.app-header__brand-block{background:#fff;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;max-width:none;padding:20px clamp(20px,3vw,56px);position:relative}
-.app-header__brand-block:after{content:'';position:absolute;right:-36px;top:0;width:72px;height:100%;transform:skew(-17deg);background:#ffffffcc;z-index:1;pointer-events:none}
-.app-header__brand{font-size:clamp(32px,3.2vw,54px);font-style:italic;font-weight:900;letter-spacing:-.06em;line-height:1;color:#348c27;margin:0;position:relative;z-index:2}
-.app-header__subtitle{font-size:clamp(12px,1.15vw,16px);font-weight:700;color:#233c2c;margin-top:12px;position:relative;z-index:2}
-.app-header__showcase{position:relative;overflow:hidden;background:linear-gradient(150deg,#44301c,#c49b60 34%,#294632 57%,#121e15);display:flex;align-items:center;justify-content:center}
-.app-header__showcase:before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(90deg,transparent 0 48px,#ffffff12 49px 51px,transparent 53px 108px),linear-gradient(180deg,#0c1e16aa,transparent 50%,#17271899)}
-.app-header__store-art{padding:10px 24px;background:linear-gradient(105deg,#39291f,#62442b);border:8px solid #bfa178;box-shadow:0 25px 40px #0007;position:relative;transform:perspective(500px) rotateY(-6deg)}
-.app-header__store-art span{color:#42ce55;text-shadow:0 3px 8px #001c0e;font-size:clamp(20px,2.7vw,42px);font-style:italic;font-weight:900}
-.app-header__campaign{display:flex;align-items:center;justify-content:center;gap:5px;background:linear-gradient(130deg,#077b3f,#004e2c);padding:15px;color:#fff;min-width:0}
-.app-header__campaign-hash{font-size:clamp(80px,10vw,160px);font-weight:900;line-height:1;color:#5bc84d;letter-spacing:-.1em}
-.app-header__campaign-words{display:flex;flex-direction:column;font-size:clamp(13px,1.4vw,20px);line-height:1;font-style:italic}
-.app-header__campaign-words strong{color:#42c35e;font-size:clamp(27px,3.3vw,53px);letter-spacing:-.07em}
-.app-header__campaign-words b{color:#fff;font-size:clamp(27px,3.3vw,53px);letter-spacing:-.07em}
-.app-header__campaign-words small{align-self:flex-end;color:#82d88a;font-size:12px;margin-top:4px}
-.app-header__meta{display:flex;align-items:center;justify-content:center;gap:10px;padding:14px;background:linear-gradient(120deg,#006a38,#004b2b);min-width:0;margin:0}
-.app-header__lines{text-align:right;min-width:0}
+
+/* Cabeçalho limpo provisório: sem imitar fotografia ausente */
+.app-header{background:linear-gradient(110deg,#ffffff 0%,#ffffff 34%,#08773e 34.1%,#004d2f 100%);border:0;color:#fff}
+.app-header__inner{max-width:1600px;min-height:150px;padding:18px clamp(18px,3vw,50px);display:grid;grid-template-columns:minmax(270px,36%) minmax(160px,1fr) minmax(230px,285px);align-items:center;gap:20px}
+.app-header__brand-block{max-width:none;min-width:0}
+.app-header__brand{margin:0;color:#358d25;font-size:clamp(31px,3.4vw,49px);font-style:italic;font-weight:900;letter-spacing:-.06em;line-height:1}
+.app-header__subtitle{margin-top:9px;color:#173e29;font-weight:700;font-size:clamp(12px,1.1vw,16px)}
+.app-header__campaign{display:flex;flex-direction:column;gap:5px;justify-self:center;color:#fff}
+.app-header__campaign strong{font-weight:850;font-size:clamp(19px,2vw,29px)}
+.app-header__campaign span{font-size:13px;color:#d1f3dc}
+.app-header__meta{margin:0;justify-self:end;display:flex;align-items:center;gap:12px;background:#003f2877;border-radius:12px;padding:12px 14px}
+.app-header__lines{text-align:right}
 .app-header__store,.app-header__user{color:#fff;font-size:13px}
-.app-header__code,.app-header__role{color:#dbf3e3}
-.app-header__signout{background:#fff;color:#08663b;border:0;border-radius:9px;padding:10px 14px;min-height:40px;flex-shrink:0;font-weight:800}
-@media(max-width:1150px){.app-header__inner{grid-template-columns:34% 34% 32%}.app-header__campaign{display:none}}
-@media(max-width:760px){.app-header__inner{grid-template-columns:1fr 1fr;min-height:0}.app-header__brand-block{min-height:130px}.app-header__brand-block:after{display:none}.app-header__showcase{min-height:130px}.app-header__meta{grid-column:1/-1;padding:12px;justify-content:flex-end}}
-@media(max-width:460px){.app-header__inner{grid-template-columns:1fr}.app-header__brand-block{min-height:115px}.app-header__showcase{display:none}.app-header__meta{grid-column:1}}
+.app-header__code,.app-header__role{color:#e1f6e7}
+.app-header__signout{background:#fff;color:#08643a;border:0;border-radius:9px;min-height:40px;padding:8px 13px;font-weight:800}
+@media(max-width:1000px){.app-header__inner{grid-template-columns:minmax(220px,45%) 1fr}.app-header__campaign{display:none}}
+@media(max-width:640px){.app-header{background:linear-gradient(180deg,#fff 0%,#fff 50%,#075b38 50.1%)}.app-header__inner{display:flex;flex-direction:column;align-items:stretch;gap:18px;min-height:0;padding:18px}.app-header__meta{align-self:flex-end;max-width:100%}}
