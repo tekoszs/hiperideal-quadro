@@ -5995,3 +5995,36 @@ button.ranking__button:hover {
 .quadro-submitted-collapse>.submitted-stores__head,.quadro-submitted-collapse>.submitted-stores__list,.quadro-submitted-collapse>.submitted-stores__empty{margin:0 14px 14px}
 .supervisor-nav__tab{min-height:42px}
 @media(max-width:640px){.quadro-submitted-summary{padding:12px;flex-wrap:wrap}.supervisor-nav__tabs{gap:5px}}
+
+/* Calendário gerencial 2026: revisão visual sem mudar as regras de datas. */
+.conf-head{padding:20px 24px!important;border-radius:16px!important;min-height:0!important}
+.conf-head__top{display:flex;align-items:center;justify-content:space-between;gap:16px}
+.conf-head__identity{min-width:0}
+.conf-head__title{font-size:clamp(19px,2vw,24px)!important;line-height:1.25!important}
+.conf-head__weekday{margin-top:4px!important;font-size:14px!important}
+.conf-head__sentence{margin-top:10px!important;font-size:13px!important}
+.monthly-calendar{padding:22px!important;border-radius:16px!important}
+.monthly-calendar__header{display:flex!important;flex-direction:column;gap:14px;align-items:stretch!important}
+.monthly-calendar__summary{display:flex!important;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}
+.monthly-calendar__eyebrow{font-size:12px!important;letter-spacing:.035em!important}
+.monthly-calendar__title{font-size:clamp(20px,2vw,27px)!important}
+.monthly-calendar__stats{display:none!important}
+.monthly-calendar__progress{display:flex!important;flex-direction:column-reverse;gap:6px;min-width:185px;max-width:320px;margin-left:auto}
+.monthly-calendar__progress-track{width:100%!important}
+.monthly-calendar__progress-text{font-size:12px;font-weight:700}
+.monthly-calendar__tiles{display:grid;grid-template-columns:repeat(4,minmax(0,1fr)) auto;gap:12px;align-items:stretch}
+.monthly-calendar__tile{min-width:0;display:flex;flex-direction:column;justify-content:center;padding:12px 15px;border:1px solid #dce7e1;border-radius:12px;background:#f8faf9}
+.monthly-calendar__tile span{font-size:13px;color:#57665f;font-weight:600}
+.monthly-calendar__tile strong{font-size:27px;color:#13261b;line-height:1.25;margin-top:4px}
+.monthly-calendar__tile--done{background:#eaf8f0;border-color:#c4ebd3}
+.monthly-calendar__tile--pending{background:#fff5e5;border-color:#f8ddb1}
+.monthly-calendar__tile--draft{background:#edf6ff;border-color:#cddff8}
+.monthly-calendar__tile-action{display:flex;align-items:center;justify-content:center}
+.monthly-calendar__tile-action .refdate__toggle{width:auto;min-width:158px;padding:10px 14px;border-radius:10px}
+.monthly-calendar__nav{margin:12px 0!important;padding-top:15px;border-top:1px solid #e3ece6;display:flex;align-items:center;gap:12px}
+.monthly-calendar__day{border-radius:9px!important;min-height:49px!important;transition:box-shadow .15s,border-color .15s}
+.monthly-calendar__day--selected{outline:2px solid #15803d;outline-offset:-2px}
+.monthly-calendar__weekdays{margin-bottom:7px!important}
+.monthly-calendar__legend{border-top:1px solid #e5ebe7;margin-top:16px;padding-top:12px;gap:16px}
+@media(max-width:1050px){.monthly-calendar__tiles{grid-template-columns:repeat(2,minmax(0,1fr))}.monthly-calendar__tile-action{grid-column:1/-1;justify-content:flex-end}}
+@media(max-width:620px){.conf-head{padding:16px!important}.conf-head__top{align-items:flex-start}.monthly-calendar{padding:12px!important}.monthly-calendar__tiles{gap:7px}.monthly-calendar__tile{padding:9px 10px}.monthly-calendar__tile strong{font-size:22px}.monthly-calendar__tile-action .refdate__toggle{width:100%}.monthly-calendar__day{min-height:43px!important}.monthly-calendar__progress{margin-left:0;max-width:none}}
