@@ -35,7 +35,7 @@ export function AppHeader({ profile, store, onSignOut, showSignOut }: Props) {
           <p className="app-header__subtitle">{APP_SUBTITLE}</p>
         </div>
 
-        <div className="app-header__message"><span>Juntos por um</span><strong>Hiperideal mais forte todos os dias.</strong></div>
+        <div className="app-header__visual" aria-hidden="true"><span className="app-header__visual-label">Conferência de Quadro</span><span className="app-header__visual-desc">Gestão diária de pessoas e equipes</span></div>
         <div className="app-header__meta">
           <div className="app-header__lines">
             {store !== undefined && (
