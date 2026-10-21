@@ -62,13 +62,13 @@ export function ConfirmSubmitModal({
         if (event.target === event.currentTarget && !sending) onCancel();
       }}
     >
-      <div className="modal">
+      <div className="modal quadro-confirm-modal">
         <div className="modal__head">
           <h2 className="modal__title" id="confirm-title">
             {store?.name ?? 'Loja'}
           </h2>
           <p className="modal__subtitle">
-            Referência {formatBrDate(conference.referenceDate)} — confira antes de enviar
+            {formatBrDate(conference.referenceDate)} · Revise as informações antes do envio definitivo
           </p>
         </div>
 
@@ -141,10 +141,10 @@ export function ConfirmSubmitModal({
 
         <div className="modal__foot">
           <button type="button" className="btn btn--ghost" onClick={onCancel} disabled={sending}>
-            Voltar e corrigir
+            Voltar para editar
           </button>
           <button type="button" className="btn btn--primary" onClick={onConfirm} disabled={sending}>
-            {sending ? 'Enviando...' : 'Enviar conferência'}
+            {sending ? 'Enviando...' : 'Finalizar conferência'}
           </button>
         </div>
       </div>
