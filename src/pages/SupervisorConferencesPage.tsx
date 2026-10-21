@@ -110,7 +110,8 @@ export function SupervisorConferencesPage({ profile, onBack, initialDate }: Prop
 
           {summary && <NetworkSummaryCards summary={summary} />}
 
-          <section className="submitted-stores" aria-label="Lojas que já enviaram a conferência">
+          <details className="submitted-stores quadro-submitted-collapse" aria-label="Lojas que já enviaram a conferência">
+            <summary className="quadro-submitted-summary">Ver lojas que já enviaram <strong>{submittedRows.length} de {totalRows}</strong></summary>
             <div className="submitted-stores__head">
               <div>
                 <p className="submitted-stores__eyebrow">Envios confirmados</p>
@@ -147,7 +148,7 @@ export function SupervisorConferencesPage({ profile, onBack, initialDate }: Prop
                 ))}
               </div>
             )}
-          </section>
+          </details>
 
           <div className="network-toolbar">
             {/*
