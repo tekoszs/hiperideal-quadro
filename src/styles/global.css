@@ -6088,3 +6088,15 @@ button.ranking__button:hover {
 @media(max-width:1150px){.app-header__message{display:none}.app-header__meta{margin-left:auto}}
 @media(max-width:730px){.app-header{background-position:42% center}.app-header__inner{min-height:155px;padding:18px!important;gap:12px!important}.app-header__brand-block{flex:1 1 180px}.app-header__brand{font-size:clamp(25px,6vw,38px)!important}.app-header__subtitle{font-size:12px!important}.app-header__meta{background:#00472cd9;padding:9px;gap:8px!important}.app-header__store,.app-header__user{font-size:12px!important}.app-header__signout{min-height:35px;padding:7px 10px!important}}
 @media(max-width:460px){.app-header__inner{align-items:flex-start!important;flex-direction:column;min-height:190px}.app-header__meta{margin-left:0;align-self:flex-end;max-width:100%}.app-header__brand{font-size:34px!important}}
+
+/* Correção do banner: três zonas independentes, sem texto sobre a arte. */
+.app-header{background-position:center!important}
+.app-header__inner{display:grid!important;grid-template-columns:minmax(260px, 38%) minmax(180px, 1fr) minmax(245px, 290px)!important;max-width:1600px!important;min-height:200px!important;align-items:center!important;gap:18px!important}
+.app-header__brand-block{grid-column:1;max-width:none!important;justify-self:start}
+.app-header__message{grid-column:2;max-width:330px!important;margin:0!important;justify-self:center;padding:12px 14px;border-radius:13px;background:#004a2d96;text-shadow:none}
+.app-header__message span{font-size:15px;color:#f0ffe9}
+.app-header__message strong{font-size:clamp(17px,1.65vw,23px)!important;color:#fff}
+.app-header__meta{grid-column:3;margin-left:0!important;justify-self:end;max-width:290px!important}
+@media(max-width:1150px){.app-header__inner{grid-template-columns:minmax(260px,42%) 1fr!important}.app-header__message{display:none!important}.app-header__meta{grid-column:2}}
+@media(max-width:730px){.app-header__inner{display:flex!important;flex-wrap:wrap!important;justify-content:space-between;min-height:145px!important}.app-header__brand-block{flex:1 1 180px}.app-header__meta{margin-left:auto!important}}
+@media(max-width:460px){.app-header__inner{flex-direction:column!important;align-items:stretch!important}.app-header__meta{align-self:flex-end}}
