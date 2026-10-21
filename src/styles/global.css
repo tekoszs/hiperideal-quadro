@@ -6045,3 +6045,31 @@ button.ranking__button:hover {
 .position-list--compact .position-row__control{gap:6px}
 .page:has(.quadro-workflow) .actions{position:sticky;bottom:10px;z-index:8;border:1px solid #d3e2d8;border-radius:13px;box-shadow:0 6px 22px #12351e21;background:#fff}
 @media(max-width:700px){.quadro-position-toolbar{align-items:stretch}.quadro-position-view{width:100%}.quadro-position-view button{flex:1}.quadro-position-count{padding:0}.page:has(.quadro-workflow) .actions{bottom:0;border-radius:12px 12px 0 0}}
+
+/* Revisão visual Hiperideal Quadro: painel, conferência e confirmação */
+.quadro-supervisor-intro{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:18px;padding:20px 22px;margin:0 0 18px;border:1px solid #d7e8dc;border-radius:16px;background:linear-gradient(120deg,#f2faf5,#fff);box-shadow:0 4px 18px #1536210a}
+.quadro-supervisor-intro>div:first-child>strong{display:block;font-size:18px;color:#173c29}
+.quadro-supervisor-intro p{margin:5px 0 0;font-size:13px;color:#61736a}
+.quadro-supervisor-intro__counters{display:flex;flex-wrap:wrap;gap:10px}
+.quadro-supervisor-intro__counters span{display:flex;flex-direction:column-reverse;gap:3px;min-width:132px;border:1px solid #dce8df;border-radius:12px;padding:11px 15px;background:#fff;color:#52655a;font-size:12px;font-weight:600}
+.quadro-supervisor-intro__counters span:first-child{background:#fff7e9;border-color:#f5dfb7}
+.quadro-supervisor-intro__counters strong{font-size:26px;line-height:1.1;color:#153b26}
+.quadro-supervisor-intro__counters span:first-child strong{color:#a95800}
+.quadro-confirm-modal{max-width:760px!important;border-radius:18px!important;overflow:hidden;box-shadow:0 22px 72px #061b1130}
+.quadro-confirm-modal .modal__head{background:linear-gradient(120deg,#eef8f1,#fff);padding:22px 24px;border-bottom:1px solid #dce9df}
+.quadro-confirm-modal .modal__title{font-size:21px;font-weight:800;letter-spacing:-.025em}
+.quadro-confirm-modal .modal__subtitle{font-size:13px}
+.quadro-confirm-modal .modal__totals{gap:12px}
+.quadro-confirm-modal .modal__total{border:1px solid #dbe7df;border-radius:12px;background:#f8fbf9}
+.quadro-confirm-modal .modal__body{padding:22px 24px;max-height:min(66vh,620px);overflow-y:auto}
+.quadro-confirm-modal .occurrence{border:1px solid #e1e9e3;border-radius:11px;margin-bottom:9px;padding:12px 14px;background:#fff}
+.quadro-confirm-modal .modal__foot{padding:16px 24px;background:#f8fbf9;border-top:1px solid #e1e9e3;display:flex;justify-content:flex-end;gap:12px;flex-wrap:wrap}
+.page:has(.quadro-workflow) .summary{gap:12px}
+.page:has(.quadro-workflow) .summary-card{background:#fff;box-shadow:0 4px 16px #143d2410;padding:18px;border:1px solid #dce8df;border-left:4px solid #16a34a}
+.page:has(.quadro-workflow) .summary-card--danger{border-left-color:#d44545}
+.page:has(.quadro-workflow) .summary-card__label{font-size:12px;letter-spacing:0;text-transform:none}
+.page:has(.quadro-workflow) .summary-card__value{font-size:34px}
+.page:has(.quadro-workflow) .position-list__header{background:#f7faf8;border-bottom:1px solid #e0e9e2}
+.page:has(.quadro-workflow) .position-row__main{gap:16px}
+.page:has(.quadro-workflow) .position-row__name{font-size:14px}
+@media(max-width:700px){.quadro-supervisor-intro{padding:16px}.quadro-supervisor-intro__counters{width:100%}.quadro-supervisor-intro__counters span{flex:1;min-width:100px}.quadro-confirm-modal .modal__body,.quadro-confirm-modal .modal__head,.quadro-confirm-modal .modal__foot{padding:15px}}
