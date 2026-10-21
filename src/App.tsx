@@ -2,6 +2,7 @@ import { useCallback, useState } from 'react';
 import { AppHeader } from '@/components/AppHeader';
 import { useAuth } from '@/hooks/useAuth';
 import { LoginPage } from '@/pages/LoginPage';
+import { ExecutiveShowcasePage } from '@/pages/ExecutiveShowcasePage';
 import { ManagerConferencePage } from '@/pages/ManagerConferencePage';
 import { NoProfilePage } from '@/pages/NoProfilePage';
 import { SupervisorArea } from '@/pages/SupervisorArea';
@@ -51,6 +52,11 @@ export default function App() {
         <p className="state">Verificando sua sessão...</p>
       </div>
     );
+  }
+
+  /* Apresentação exclusivamente no ambiente sem Supabase: jamais ignora login de produção. */
+  if (mode === 'DEMO' && new URLSearchParams(window.location.search).get('apresentacao') === '1') {
+    return <ExecutiveShowcasePage />;
   }
 
   /* DEV only: preview visual do login sem autenticar. */

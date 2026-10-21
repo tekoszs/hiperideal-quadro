@@ -10,60 +10,42 @@ interface Props {
   showSignOut: boolean;
 }
 
-/**
- * Cabeçalho da conferência. A arte aprovada fica em public/download.jpg.
- * As informações de acesso e a ação de sair permanecem interativas e fora
- * da imagem, evitando texto duplicado e sobreposição em telas menores.
- */
 export function AppHeader({ profile, store, onSignOut, showSignOut }: Props) {
-  const showAccountBar = store !== undefined || Boolean(profile) || showSignOut;
-
   return (
     <header className="quadro-banner">
-      <div className="quadro-banner__mobile-brand">
-        <strong>Hiperideal</strong>
-        <span>{APP_SUBTITLE}</span>
-      </div>
-
-      <div className="quadro-banner__artwork">
-        <img
-          className="quadro-banner__image"
-          src="/download.jpg"
-          alt="Hiperideal. Conferência Diária de Quadro. Sou do Time Ideal."
-          width={1955}
-          height={251}
-          decoding="async"
-        />
-      </div>
-
-      {showAccountBar && (
-        <div className="quadro-banner__account">
-          <div className="quadro-banner__account-details">
-            {store !== undefined && (
-              <div className="quadro-banner__store">
-                <strong>{store ? store.name : 'Loja não identificada'}</strong>
-                {store && <span>Código {store.code}</span>}
-              </div>
-            )}
-            {profile && (
-              <div className="quadro-banner__user">
-                <strong>{profile.name}</strong>
-                <span>{ROLE_LABEL[profile.role]}</span>
-              </div>
+      <div className="quadro-banner__main">
+        <div className="quadro-banner__brand" aria-label="Hiperideal, Conferência de Quadro">
+          <span className="quadro-banner__monogram" aria-hidden="true">H</span>
+          <span className="quadro-banner__brandtext">
+            <strong>hiperideal<span style={{ color: '#2aa773' }}>.</span></strong>
+            <span>{APP_SUBTITLE} <span aria-hidden="true">/</span> Gestão de Pessoas</span>
+          </span>
+        </div>
+        <div className="quadro-banner__right">
+          <span className="quadro-banner__tag">Gestão de quadro</span>
+          <div className="quadro-banner__account">
+            <div className="quadro-banner__account-details">
+              {store !== undefined && (
+                <div className="quadro-banner__store">
+                  <strong>{store ? store.name : 'Loja não identificada'}</strong>
+                  {store && <span>Filial {store.code}</span>}
+                </div>
+              )}
+              {profile && (
+                <div className="quadro-banner__user">
+                  <strong>{profile.name}</strong>
+                  <span>{ROLE_LABEL[profile.role]}</span>
+                </div>
+              )}
+            </div>
+            {showSignOut && (
+              <button type="button" className="quadro-banner__signout" onClick={onSignOut}>
+                Sair
+              </button>
             )}
           </div>
-
-          {showSignOut && (
-            <button
-              type="button"
-              className="quadro-banner__signout"
-              onClick={onSignOut}
-            >
-              Sair
-            </button>
-          )}
         </div>
-      )}
+      </div>
     </header>
   );
 }

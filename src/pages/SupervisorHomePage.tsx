@@ -43,6 +43,7 @@ export function SupervisorHomePage({
   return (
     <main className="page">
       <div className="page-hero">
+        <span className="page-hero__eyebrow">CENTRAL DE GESTÃO · QUADRO DE PESSOAS</span>
         <h2 className="page-hero__title">{titulo}</h2>
         <p className="page-hero__subtitle">
           {profile.name}
@@ -56,7 +57,7 @@ export function SupervisorHomePage({
       <section className="section">
         <div className="section__head">
           <div>
-            <h2 className="section__title">Áreas</h2>
+            <h2 className="section__title">Áreas de acompanhamento</h2>
           </div>
         </div>
 

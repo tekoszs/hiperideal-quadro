@@ -89,35 +89,11 @@ export function SupervisorNetworkDashboardPage({ profile, onBack, onOpenConferen
 
   return (
     <main className="page supervisor-dashboard">
-      <style>{`
-        .supervisor-dashboard .section { border: 0; box-shadow: 0 8px 30px rgba(15, 46, 29, .07); }
-        .supervisor-dashboard .section__head--network { padding-bottom: 12px; }
-        .supervisor-dashboard .section__body { padding-top: 16px; }
-        .supervisor-dashboard .analytics-filters { padding: 14px; border: 1px solid #dfe9e2; border-radius: 14px; background: #f8fbf9; }
-        .supervisor-dashboard .panel { border-color: #dfe7e1; border-radius: 14px; box-shadow: 0 5px 18px rgba(18, 55, 34, .055); }
-        .supervisor-dashboard .panel__title { font-size: 14px; letter-spacing: .015em; }
-        .supervisor-dashboard .supervisor-attention { margin: 18px 0; padding: 16px; border: 1px solid #f2d2a6; border-radius: 14px; background: linear-gradient(135deg,#fffaf3,#fff); }
-        .supervisor-dashboard .supervisor-attention__head { display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:12px; }
-        .supervisor-dashboard .supervisor-attention__title { margin:0; color:#9a4b00; font-size:14px; font-weight:800; text-transform:uppercase; letter-spacing:.035em; }
-        .supervisor-dashboard .supervisor-attention__hint { margin:3px 0 0; color:#7c7166; font-size:12px; }
-        .supervisor-dashboard .supervisor-attention__grid { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:10px; }
-        .supervisor-dashboard .supervisor-attention__card { min-height:82px; padding:13px; border:1px solid #f0dfc8; border-radius:11px; background:#fff; }
-        .supervisor-dashboard .supervisor-attention__card strong { display:block; margin-bottom:5px; color:#b42318; font-size:14px; }
-        .supervisor-dashboard .supervisor-attention__card span { color:#68746d; font-size:12px; line-height:1.35; }
-        .supervisor-dashboard .supervisor-attention__card--coverage strong { color:#ad5b00; }
-        .supervisor-dashboard .supervisor-attention__card button { padding:0; border:0; background:none; color:inherit; font:inherit; font-weight:inherit; text-align:left; cursor:pointer; }
-        .supervisor-dashboard .analytics-grid { gap:14px; }
-        .supervisor-dashboard .ranking__row { transition:background .15s ease, transform .15s ease; }
-        .supervisor-dashboard .ranking__row:hover { background:#f7fbf8; }
-        @media (max-width: 980px) { .supervisor-dashboard .supervisor-attention__grid { grid-template-columns:repeat(2,minmax(0,1fr)); } }
-        @media (max-width: 620px) {
-          .supervisor-dashboard .supervisor-attention__grid { grid-template-columns:1fr; }
-          .supervisor-dashboard .analytics-filters { padding:10px; }
-        }
-      `}</style>
+
       {onBack && <BackButton onClick={onBack} />}
 
       <div className="page-hero">
+        <span className="page-hero__eyebrow">INTELIGÊNCIA OPERACIONAL · INDICADORES</span>
         <h2 className="page-hero__title">{titulo}</h2>
         <p className="page-hero__subtitle">
           {districtLocked && distritoAtual

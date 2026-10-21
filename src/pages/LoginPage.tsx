@@ -59,11 +59,21 @@ export function LoginPage({ onSignIn, onSignInWithStore, loading, error }: Props
 
   return (
     <div className="login">
-      <div className="login__hero" aria-hidden="true" />
+      <aside className="login__hero">
+        <div className="login__hero-top"><span className="login__hero-symbol">H</span> hiperideal.</div>
+        <div className="login__hero-content">
+          <p className="login__hero-eyebrow">GESTÃO DE PESSOAS</p>
+          <h2>Uma visão clara.<br/>Decisões melhores.</h2>
+          <p>Centralize a conferência diária do quadro, acompanhe faltas e folgas e tenha uma leitura organizada da operação em cada filial.</p>
+          <span className="login__hero-pill">Inteligência operacional para sua equipe</span>
+        </div>
+        <div className="login__hero-footer"><span>HIPERIDEAL · SOU DO TIME IDEAL</span><span>Portal corporativo</span></div>
+      </aside>
 
       <form className="login__card" onSubmit={handleSubmit}>
+        <div className="login__eyebrow">PORTAL CORPORATIVO / ACESSO SEGURO</div>
         <div className="login__brand">
-          <h1 className="login__title">{APP_NAME}</h1>
+          <h1 className="login__title">Bem-vindo ao<br/> {APP_NAME}</h1>
           <p className="login__subtitle">{APP_SUBTITLE}</p>
         </div>
 
