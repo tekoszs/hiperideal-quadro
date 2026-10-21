@@ -65,7 +65,6 @@ export function MonthlyCalendar({
               <span><strong>{progress.drafts}</strong> rascunho{progress.drafts === 1 ? '' : 's'}</span>
             </div>
           )}
-          {toggleSlot}
         </div>
 
         {isCurrentMonth && (
@@ -76,6 +75,13 @@ export function MonthlyCalendar({
             <span className="monthly-calendar__progress-text">{progress.done} de {progress.eligible} dias elegíveis</span>
           </div>
         )}
+        <div className="monthly-calendar__tiles" aria-label="Indicadores do mês">
+          <div className="monthly-calendar__tile monthly-calendar__tile--done"><span>Concluídas</span><strong>{progress.done}</strong></div>
+          <div className="monthly-calendar__tile monthly-calendar__tile--pending"><span>Pendentes</span><strong>{progress.pending}</strong></div>
+          <div className="monthly-calendar__tile monthly-calendar__tile--draft"><span>Rascunhos</span><strong>{progress.drafts}</strong></div>
+          <div className="monthly-calendar__tile monthly-calendar__tile--eligible"><span>Dias elegíveis</span><strong>{progress.eligible}</strong></div>
+          <div className="monthly-calendar__tile-action">{toggleSlot}</div>
+        </div>
       </div>
 
       <nav className="monthly-calendar__nav" aria-label="Navegação de mês">
@@ -155,7 +161,7 @@ export function MonthlyCalendar({
       <div className="monthly-calendar__legend" aria-label="Legenda dos status">
         <span className="monthly-calendar__legend-item monthly-calendar__legend-item--submitted">
           <span className="monthly-calendar__legend-dot" aria-hidden="true" />
-          Enviada
+          Concluída
         </span>
         <span className="monthly-calendar__legend-item monthly-calendar__legend-item--pending">
           <span className="monthly-calendar__legend-dot" aria-hidden="true" />
