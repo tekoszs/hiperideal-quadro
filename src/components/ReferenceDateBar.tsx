@@ -46,7 +46,7 @@ interface Props {
  */
 export function ReferenceDateBar({
   dates,
-  pending: _pending,
+  pending,
   selected,
   bounds: _bounds,
   disabled,
@@ -60,7 +60,17 @@ export function ReferenceDateBar({
   const visibleMonth = month ?? dates[0]?.date.slice(0, 7) ?? today.slice(0, 7);
 
   return (
-    <section className="refdate" aria-label="Data da conferência">
+    <section className="refdate op-date-card" aria-label="Data da conferência">
+      <div className="op-date-card__head">
+        <div>
+          <span className="op-section-eyebrow">AGENDA OPERACIONAL</span>
+          <h3>Selecione a data de referência</h3>
+          <p>Confira o calendário antes de registrar as ocorrências.</p>
+        </div>
+        <span className={`op-date-card__pending${pending.length ? ' op-date-card__pending--alert' : ''}`}>
+          {pending.length === 0 ? 'Sem datas pendentes' : `${pending.length} ${pending.length === 1 ? 'pendência' : 'pendências'}`}
+        </span>
+      </div>
       {!collapsed && (
         <MonthlyCalendar
           month={visibleMonth}

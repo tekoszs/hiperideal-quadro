@@ -75,6 +75,7 @@ export function SupervisorConferencesPage({ profile, onBack, initialDate }: Prop
       {onBack && <BackButton onClick={onBack} />}
 
       <div className="page-hero">
+        <span className="page-hero__eyebrow">ACOMPANHAMENTO OPERACIONAL · FILIAIS</span>
         <h2 className="page-hero__title">Conferências do Dia</h2>
         <p className="page-hero__subtitle">
           {districtLocked && distritoAtual
@@ -112,7 +113,17 @@ export function SupervisorConferencesPage({ profile, onBack, initialDate }: Prop
             <div><strong>Acompanhamento das lojas</strong><p>Confira primeiro as pendências e depois consulte os envios confirmados.</p></div>
             <div className="quadro-supervisor-intro__counters"><span><strong>{Math.max(0, totalRows - submittedRows.length)}</strong> lojas pendentes</span><span><strong>{submittedRows.length}</strong> enviadas</span></div>
           </div>
-          {summary && <NetworkSummaryCards summary={summary} />}
+          {summary && (
+            <>
+              <div className="op-progress-summary">
+                <div><span className="op-section-eyebrow">ACOMPANHAMENTO DAS ENTREGAS</span><strong>{summary.stores > 0 ? Math.round((summary.submitted / summary.stores) * 100) : 0}% das lojas enviaram</strong></div>
+                <div className="op-progress-summary__track" role="progressbar" aria-label="Percentual de conferências enviadas" aria-valuemin={0} aria-valuemax={100} aria-valuenow={summary.stores > 0 ? Math.round((summary.submitted / summary.stores) * 100) : 0}>
+                  <span style={{ width: `${summary.stores > 0 ? Math.min(100, Math.round((summary.submitted / summary.stores) * 100)) : 0}%` }} />
+                </div>
+              </div>
+              <NetworkSummaryCards summary={summary} />
+            </>
+          )}
 
           <details className="submitted-stores quadro-submitted-collapse" aria-label="Lojas que já enviaram a conferência">
             <summary className="quadro-submitted-summary">Ver lojas que já enviaram <strong>{submittedRows.length} de {totalRows}</strong></summary>

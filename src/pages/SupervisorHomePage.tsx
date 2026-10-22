@@ -54,7 +54,18 @@ export function SupervisorHomePage({
         </p>
       </div>
 
-      <section className="section">
+      <section className="op-management-overview" aria-label="Caminhos de gestão">
+        <div className="op-management-overview__title">
+          <span className="op-section-eyebrow">SEU AMBIENTE DE TRABALHO</span>
+          <h2>O que deseja acompanhar?</h2>
+          <p>Escolha uma área para consultar os dados permitidos ao seu perfil.</p>
+        </div>
+        <div className="op-management-overview__info">
+          <span>◎</span>
+          <div><strong>Seu escopo</strong><small>{alcance}</small></div>
+        </div>
+      </section>
+      <section className="section op-management-areas">
         <div className="section__head">
           <div>
             <h2 className="section__title">Áreas de acompanhamento</h2>

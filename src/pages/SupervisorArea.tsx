@@ -108,14 +108,14 @@ function SupervisorNav({
   return (
     <nav className="supervisor-nav" aria-label="Áreas do supervisor">
       <div className="supervisor-nav__tabs">
-        <button type="button" className="supervisor-nav__tab" onClick={onHome} aria-label="Voltar ao início da supervisão">Início</button>
+        <button type="button" className="supervisor-nav__tab" onClick={onHome} aria-label="Voltar ao início da supervisão"><span className="op-nav-icon" aria-hidden="true">⌂</span> Início</button>
         <button
           type="button"
           className={`supervisor-nav__tab${current === 'NETWORK' ? ' supervisor-nav__tab--on' : ''}`}
           aria-current={current === 'NETWORK' ? 'page' : undefined}
           onClick={onNetwork}
         >
-          {networkLabel}
+          <span className="op-nav-icon" aria-hidden="true">▦</span> {networkLabel}
         </button>
         <button
           type="button"
@@ -123,7 +123,7 @@ function SupervisorNav({
           aria-current={current === 'CONFERENCES' ? 'page' : undefined}
           onClick={onConferences}
         >
-          Conferências
+          <span className="op-nav-icon" aria-hidden="true">✓</span> Conferências
         </button>
         {showAdministration && (
           <button
@@ -132,7 +132,7 @@ function SupervisorNav({
             aria-current={current === 'ADMINISTRATION' ? 'page' : undefined}
             onClick={onAdministration}
           >
-            Administração
+            <span className="op-nav-icon" aria-hidden="true">⚙</span> Administração
           </button>
         )}
       </div>

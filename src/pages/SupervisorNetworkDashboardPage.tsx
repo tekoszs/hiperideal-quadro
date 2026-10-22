@@ -102,6 +102,10 @@ export function SupervisorNetworkDashboardPage({ profile, onBack, onOpenConferen
         </p>
       </div>
 
+      <div className="op-analysis-note">
+        <span className="op-analysis-note__icon" aria-hidden="true">↗</span>
+        <div><strong>Leitura consolidada</strong><p>Analise os resultados por período, distrito, loja e função. Selecione um item dos rankings para consultar o detalhamento.</p></div>
+      </div>
       <section className="section">
         <div className="section__head section__head--network">
           <div>

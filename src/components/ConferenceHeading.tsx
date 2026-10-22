@@ -40,7 +40,8 @@ export function ConferenceHeading({ referenceDate, state, submittedAt }: Props) 
   const preRegistro = state === 'PRE_REGISTRATION';
 
   return (
-    <header className={`conf-head${preRegistro ? ' conf-head--pre' : ''}`}>
+    <header className={`conf-head op-conf-head${preRegistro ? ' conf-head--pre' : ''}`}>
+      <span className="op-section-eyebrow">REFERÊNCIA DA CONFERÊNCIA</span>
       <div className="conf-head__top">
         <div className="conf-head__identity">
           <h2 className="conf-head__title">

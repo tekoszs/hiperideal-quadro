@@ -180,6 +180,21 @@ export function ManagerConferencePage({ profile, onStoreLoaded }: Props) {
           <p className="state">Carregando conferência...</p>
         ) : (
           <>
+            <div className="op-workspace-heading">
+              <div className="op-workspace-heading__identity">
+                <span className="op-eyebrow"><span className="op-eyebrow__dot" /> ROTINA OPERACIONAL · GESTÃO DE PESSOAS</span>
+                <h1>Conferência diária da loja</h1>
+                <p>Registre faltas e folgas por função e acompanhe o andamento do seu quadro.</p>
+              </div>
+              <div className="op-workspace-heading__actions">
+                <span className={`op-queue-chip${datas.pending.length ? ' op-queue-chip--alert' : ''}`}>
+                  <span aria-hidden="true">◷</span> {datas.pending.length} {datas.pending.length === 1 ? 'data pendente' : 'datas pendentes'}
+                </span>
+                <button type="button" className="op-jump-btn" onClick={() => document.getElementById('quadro-funcoes')?.scrollIntoView({ behavior: 'smooth', block: 'start' })}>
+                  Ir para lançamentos <span aria-hidden="true">↓</span>
+                </button>
+              </div>
+            </div>
             <ConferenceHeading
               referenceDate={conference.referenceDate}
               state={estadoDoTitulo}
@@ -249,7 +264,13 @@ export function ManagerConferencePage({ profile, onStoreLoaded }: Props) {
               </div>
             )}
 
-            <div className="quadro-workflow" aria-label="Etapas da conferência"><span className="quadro-workflow__active">1. Escolher data</span><span className="quadro-workflow__active">2. Conferir faltas e folgas</span><span>3. Salvar ou finalizar</span></div>
+            <nav className="op-steps" aria-label="Etapas da conferência">
+              <span className="op-steps__item op-steps__item--done"><strong>1</strong> Selecione a data</span>
+              <span className="op-steps__connector" aria-hidden="true" />
+              <span className="op-steps__item op-steps__item--active"><strong>2</strong> Informe as ocorrências</span>
+              <span className="op-steps__connector" aria-hidden="true" />
+              <span className="op-steps__item"><strong>3</strong> Salve ou finalize</span>
+            </nav>
             <SummaryCards summary={summary} />
 
             {feedback && (
@@ -260,9 +281,10 @@ export function ManagerConferencePage({ profile, onStoreLoaded }: Props) {
 
             <ValidationSummary issues={issues} />
 
-            <section className="section">
+            <section id="quadro-funcoes" className="section op-conference-section">
               <div className="section__head">
                 <div>
+                  <span className="op-section-eyebrow">LANÇAMENTOS DO DIA</span>
                   <h2 className="section__title">Funções da loja</h2>
                   <p className="section__hint">
                     {catalog.positions.length} funções · faltas e folgas começam em zero
@@ -289,7 +311,7 @@ export function ManagerConferencePage({ profile, onStoreLoaded }: Props) {
             </section>
 
             {editable && (
-              <div className="actions">
+              <div className="actions op-savebar" aria-label="Ações de salvamento da conferência">
                 {/*
                   Salvamento é informação de canto de tela: quem está preenchendo
                   não pode ser interrompido por modal nem por faixa colorida.

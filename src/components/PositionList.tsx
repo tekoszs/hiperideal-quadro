@@ -192,6 +192,10 @@ export function PositionList({
         }
       `}</style>
 
+      <div className="op-position-intro">
+        <div><span className="op-section-eyebrow">CONTROLE POR FUNÇÃO</span><strong>Preenchimento das ocorrências</strong><p>Utilize os controles para registrar as quantidades de faltas e folgas.</p></div>
+        <div className="op-position-intro__count">{totals.launched}<span> funções com lançamento</span></div>
+      </div>
       <div className="quadro-position-toolbar">
         <label className="quadro-sector-filter">Setor
           <select value={sectorFilter} onChange={event => setSectorFilter(event.target.value)} aria-label="Filtrar funções por setor">
