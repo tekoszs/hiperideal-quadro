@@ -101,3 +101,171 @@ body { background: radial-gradient(ellipse at 90% 0%,#e3f2e9 0%,transparent 36%)
   .summary--conference .summary-card,.quadro-banner__signout { transition:none; }
   .summary--conference .summary-card:hover,.quadro-banner__signout:hover { transform:none; }
 }
+
+/* Cabeçalho executivo compacto e painel de referência - novembro de 2026 */
+.quadro-banner__artwork {
+  height: clamp(112px, 9.7vw, 155px);
+  background: #086635;
+}
+.quadro-banner__image {
+  height: 100% !important;
+  min-height: 0;
+  width: 100%;
+  aspect-ratio: auto;
+  object-fit: cover;
+  object-position: center 50%;
+}
+.quadro-banner__account {
+  justify-content: space-between;
+  min-height: 74px;
+  padding: 11px clamp(24px, 5vw, 76px);
+  background: linear-gradient(95deg,#eaf5ee,#f9fcfa 65%,#ffffff);
+  border-bottom: 1px solid #cfe3d5;
+}
+.quadro-banner__account-details {
+  justify-content: flex-start;
+  text-align: left;
+  gap: 14px 32px;
+}
+.quadro-banner__store {
+  flex-direction: row;
+  gap: 11px;
+  align-items: center;
+}
+.quadro-banner__store-icon {
+  width: 42px;
+  height: 42px;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  border: 1px solid #b7d9c3;
+  background: #d7eddf;
+  color: #086936;
+  border-radius: 12px;
+  font-size: 28px;
+  font-weight: 700;
+}
+.quadro-banner__store-text {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.quadro-banner__store-text strong {
+  color:#0b5c32;
+  font-size:16px;
+  font-weight:850;
+  letter-spacing:-.02em;
+}
+.quadro-banner__store-text > span { color:#567563; font-size:12px; font-weight:550; }
+.quadro-banner__user {
+  border-left: 1px solid #cee3d5;
+  padding-left: 25px;
+  gap: 3px;
+}
+.quadro-banner__user strong { color:#254735; font-size:13px; }
+.quadro-banner__user span { font-size:12px; }
+.quadro-banner__signout {
+  padding:11px 18px;
+  min-height:42px;
+  background: #fff;
+  border:1px solid #a7cbb5;
+  border-radius:12px;
+  box-shadow:0 2px 9px rgba(20,75,40,.035);
+}
+.page { padding-top: 20px; }
+.conf-head {
+  position:relative;
+  border:1px solid #d6e7dc;
+  border-left:5px solid #118344;
+  border-radius:20px;
+  padding:25px 30px 22px !important;
+  background:linear-gradient(115deg, #fff 55%, #f2faf5 100%);
+  box-shadow:0 9px 30px rgba(16,78,39,.075);
+}
+.conf-head__top {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px;
+}
+.conf-head__identity { display:flex; flex-direction:column; gap:4px; min-width:0; }
+.conf-head__eyebrow {
+  margin:0;
+  color:#6a8271;
+  font-size:12px;
+  font-weight:800;
+  letter-spacing:.065em;
+}
+.conf-head__title {
+  margin:0;
+  font-size:clamp(30px,3.25vw,43px) !important;
+  line-height:1.08 !important;
+  font-weight:850;
+  letter-spacing:-.04em;
+}
+.conf-head__date { font-size:inherit; color:#104b2c; }
+.conf-head__sentence {
+  margin-top:15px !important;
+  padding-top:13px;
+  border-top:1px solid #e4efe7;
+  font-size:14px !important;
+  line-height:1.45;
+  color:#557362;
+}
+.conf-status {
+  display:inline-flex;
+  gap:8px;
+  align-items:center;
+  padding:10px 14px;
+  border-radius:999px;
+  font-size:12px;
+  letter-spacing:.035em;
+  font-weight:850;
+  border:1px solid #f0d3a8;
+  background:#fff2df;
+  color:#9b5707;
+  white-space:nowrap;
+}
+.conf-status__dot { display:inline-block; width:8px; height:8px; border-radius:50%; background:currentColor; }
+.conf-status--submitted {
+  border-color:#bbe1c8;
+  background:#e8f6ec;
+  color:#0b713a;
+}
+.conf-status--draft,.conf-status--reopened {
+  border-color:#e9d7b5;
+  background:#fff8e9;
+  color:#93620e;
+}
+.conf-head--pre { background:linear-gradient(115deg, #fff 55%, #f1f8f3); }
+@media (max-width:760px) {
+  .quadro-banner__artwork { height:100px; }
+  .quadro-banner__image { height:100% !important; object-position:55% 50%; }
+  .quadro-banner__account { min-height:0; padding:12px 14px; gap:10px; align-items:center; }
+  .quadro-banner__account-details { gap:8px 12px; flex:1; min-width:0; }
+  .quadro-banner__store-icon { width:36px; height:36px; font-size:23px; border-radius:10px; }
+  .quadro-banner__store-text strong { font-size:13px; }
+  .quadro-banner__store-text > span { font-size:11px; }
+  .quadro-banner__user { padding-left:0; border-left:0; }
+  .quadro-banner__signout { min-height:38px; padding:8px 12px; }
+  .page { padding-top:14px; }
+  .conf-head { padding:19px 18px 17px !important; border-radius:16px; }
+  .conf-head__top { align-items:flex-start; gap:12px; }
+  .conf-head__eyebrow { font-size:10px; letter-spacing:.045em; }
+  .conf-head__title { font-size:clamp(26px,6vw,34px) !important; }
+  .conf-status { padding:7px 9px; font-size:10px; gap:5px; }
+  .conf-status__dot { width:6px; height:6px; }
+  .conf-head__sentence { font-size:12px !important; margin-top:12px !important; }
+}
+@media (max-width:480px) {
+  .quadro-banner__mobile-brand { padding:8px 14px 7px; }
+  .quadro-banner__mobile-brand strong { font-size:24px; }
+  .quadro-banner__artwork { height:74px; }
+  .quadro-banner__account-details { flex-direction:column; align-items:flex-start; gap:5px; }
+  .quadro-banner__user { margin-left:47px; }
+  .quadro-banner__user strong { font-size:11px; }
+  .quadro-banner__user span { display:none; }
+  .quadro-banner__store-text strong { font-size:12px; }
+  .conf-head__top { flex-wrap:wrap; }
+  .conf-status { align-self:flex-start; }
+}
