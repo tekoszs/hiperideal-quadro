@@ -633,3 +633,216 @@ body { background: radial-gradient(ellipse at 90% 0%,#e3f2e9 0%,transparent 36%)
   .monthly-calendar__day-detail { font-size:6px; }
   .monthly-calendar__day { height:43px!important; min-height:43px!important; }
 }
+
+
+/* Login institucional Hiperideal: layout responsivo e hierarquia de acesso */
+.login {
+  min-height:100svh;
+  align-items:stretch;
+  background:linear-gradient(125deg,#e9f3ed,#f7faf8 60%,#e8f2eb);
+  overflow:hidden;
+}
+.login__hero {
+  flex:1 1 54%;
+  min-height:100svh;
+  background:#064c2b;
+  isolation:isolate;
+}
+.login__hero::before {
+  inset:0;
+  background-image:linear-gradient(0deg,rgba(0,42,25,.75),rgba(0,58,31,.11) 56%,rgba(0,55,29,.24)),url('/images/hiperideal-quadro.png');
+  filter:none;
+  transform:none;
+  background-size:cover;
+  background-position:center;
+  opacity:1;
+}
+.login__hero::after {
+  inset:clamp(20px,4vw,55px);
+  bottom:150px;
+  border-radius:20px;
+  background-size:contain;
+  background-position:center;
+  box-shadow:0 18px 45px rgba(0,28,14,.22);
+}
+.login__hero-caption {
+  position:absolute;
+  z-index:2;
+  bottom:36px;
+  left:clamp(30px,5vw,74px);
+  right:clamp(30px,5vw,74px);
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+  gap:6px;
+  color:#fff;
+}
+.login__hero-caption span {
+  font-size:11px;
+  letter-spacing:.22em;
+  font-weight:800;
+  color:#abdfbe;
+}
+.login__hero-caption strong {
+  font-size:clamp(19px,2vw,28px);
+  line-height:1.2;
+  max-width:530px;
+  letter-spacing:-.03em;
+}
+.login__hero-caption p {
+  margin:2px 0 0;
+  color:#dbefe1;
+  font-size:13px;
+}
+.login__card {
+  flex:0 1 530px;
+  width:min(100%,530px);
+  align-self:center;
+  justify-content:flex-start;
+  max-height:calc(100svh - 42px);
+  overflow-y:auto;
+  margin:21px clamp(17px,3vw,54px);
+  padding:clamp(22px,2.5vw,36px);
+  border:1px solid #dce9df;
+  border-radius:24px;
+  background:#fff;
+  box-shadow:0 22px 65px rgba(13,60,29,.13);
+  gap:17px;
+}
+.login__brand { margin:0 0 6px; text-align:left; }
+.login__brand-eyebrow {
+  font-size:10px;
+  letter-spacing:.18em;
+  font-weight:850;
+  color:#548d67;
+}
+.login__title {
+  margin-top:7px;
+  color:#087139;
+  font-size:clamp(26px,2.3vw,33px);
+  line-height:1.15;
+  font-weight:900;
+  letter-spacing:.085em;
+}
+.login__subtitle { font-size:15px; font-weight:750; color:#274633; margin-top:5px; }
+.login__brand-description { font-size:12px; color:#819387; margin:4px 0 0; }
+.login__modes { padding:4px; background:#eff5f1; border-color:#dfebe2; border-radius:13px; }
+.login__mode { min-height:41px; border-radius:10px; font-size:12px; font-weight:800; }
+.login__mode--on { background:#0a7f40!important; color:#fff!important; box-shadow:0 4px 13px rgba(12,105,50,.16); }
+.login__mode:not(.login__mode--on):hover:not(:disabled) { background:#e0eee5; }
+.login__card .field__label { font-size:12px; font-weight:750; color:#3e654d; margin-bottom:5px; }
+.login__card .field__input {
+  min-height:45px;
+  width:100%;
+  border:1px solid #d5e3d9;
+  border-radius:11px;
+  padding:10px 13px;
+  font-size:13px;
+  background:#fbfdfc;
+  color:#193f27;
+}
+.login__card .field__input:focus { background:#fff; border-color:#0e8344; outline:none; box-shadow:0 0 0 3px rgba(17,138,70,.13); }
+.store-picker { gap:7px; }
+.store-picker__list {
+  max-height:185px;
+  border-radius:12px;
+  border:1px solid #e0eae3;
+  box-shadow:0 5px 18px rgba(19,70,39,.035);
+  overflow-x:hidden;
+}
+.store-picker__option {
+  display:grid;
+  grid-template-columns:46px minmax(0,1fr) 16px;
+  align-items:center;
+  min-height:40px;
+  padding:7px 11px;
+  gap:6px 12px;
+  border-bottom-color:#edf1ee;
+  transition:background .15s ease;
+}
+.store-picker__option:hover:not(:disabled) { background:#f0f9f3; }
+.store-picker__code {
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  grid-row:1 / span 2;
+  min-height:26px;
+  padding:3px;
+  border-radius:7px;
+  background:#e8f4ec;
+  color:#08713b;
+  font-size:12px;
+  font-weight:850;
+}
+.store-picker__name { font-size:13px; color:#224b31; font-weight:800; }
+.store-picker__full { font-size:10px; }
+.store-picker__option-arrow { grid-column:3; grid-row:1 / span 2; color:#9db8a6; font-size:20px; font-weight:500; }
+.store-picker__chosen { border:1px solid #97d0ab; border-radius:12px; min-height:46px; background:#ebf8ef; padding:9px 12px; }
+.store-picker__chosen-label { font-size:13px; color:#0a6836; }
+.store-picker .field__hint { margin:4px 0 0; font-size:11px; color:#849488; }
+.login__password-wrap { position:relative; display:flex; align-items:center; width:100%; }
+.login__password-wrap .field__input { padding-right:82px; }
+.login__password-toggle {
+  position:absolute;
+  right:7px;
+  top:50%;
+  transform:translateY(-50%);
+  padding:6px 8px;
+  border:0;
+  border-radius:7px;
+  background:transparent;
+  color:#287448;
+  font-size:11px;
+  font-weight:800;
+}
+.login__password-toggle:hover:not(:disabled) { background:#e7f4eb; }
+.login__submit {
+  min-height:49px;
+  margin-top:0;
+  background:linear-gradient(105deg,#087d3d,#0b9148)!important;
+  border:0;
+  border-radius:12px;
+  box-shadow:0 8px 17px rgba(7,112,52,.18);
+  color:#fff;
+  font-size:14px;
+  font-weight:850;
+  transition:filter .15s ease,transform .15s ease;
+}
+.login__submit:hover:not(:disabled) { filter:brightness(.95); transform:translateY(-1px); }
+.login__hint { font-size:11px; color:#72877a; line-height:1.45; }
+.login__footer {
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:6px;
+  padding-top:13px;
+  border-top:1px solid #e7eee9;
+  font-size:11px;
+  color:#8a9d90;
+}
+.login__security-dot { width:7px; height:7px; border-radius:50%; background:#148947; }
+@media (max-width:1050px) {
+  .login__hero { flex-basis:46%; }
+  .login__hero::after { inset:18px; bottom:145px; }
+  .login__card { flex-basis:490px; margin:18px; padding:25px; }
+}
+@media (max-width:760px) {
+  .login { flex-direction:column; align-items:stretch; min-height:100svh; overflow:visible; }
+  .login__hero { min-height:170px; height:170px; flex:0 0 170px; }
+  .login__hero::after { inset:14px 18px; bottom:14px; border-radius:13px; box-shadow:none; }
+  .login__hero-caption { display:none; }
+  .login__card { flex:1 1 auto; width:calc(100% - 26px); max-width:530px; max-height:none; overflow:visible; margin:-14px auto 18px; padding:24px 20px; position:relative; z-index:3; border-radius:20px; gap:15px; }
+  .login__title { font-size:27px; }
+  .store-picker__list { max-height:165px; }
+  .store-picker__option { min-height:42px; }
+}
+@media (max-width:420px) {
+  .login__hero { min-height:132px; height:132px; flex-basis:132px; }
+  .login__card { margin-top:-10px; padding:20px 16px; gap:13px; }
+  .login__brand-description { display:none; }
+  .login__subtitle { font-size:13px; }
+}
+@media (prefers-reduced-motion:reduce) {
+  .login__submit,.store-picker__option { transition:none; }
+  .login__submit:hover:not(:disabled) { transform:none; }
+}
