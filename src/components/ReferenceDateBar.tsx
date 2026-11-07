@@ -101,6 +101,10 @@ export function ReferenceDateBar({
       )}
 
       <div className="refdate__today">
+        <div className="refdate__quick-copy">
+          <span className="refdate__quick-icon" aria-hidden="true">↗</span>
+          <div><strong>Ação rápida</strong><span>Registre as ocorrências da data atual.</span></div>
+        </div>
         <button
           type="button"
           className="btn btn--ghost refdate__today-btn"
@@ -110,9 +114,6 @@ export function ReferenceDateBar({
         >
           Registrar ocorrências de hoje
         </button>
-        <p className="refdate__today-hint">
-          Atalho para o dia marcado como Hoje no calendário.
-        </p>
       </div>
     </section>
   );
