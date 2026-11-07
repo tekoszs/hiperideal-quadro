@@ -846,3 +846,97 @@ body { background: radial-gradient(ellipse at 90% 0%,#e3f2e9 0%,transparent 36%)
   .login__submit,.store-picker__option { transition:none; }
   .login__submit:hover:not(:disabled) { transform:none; }
 }
+
+
+/* Quadro Hiperideal | identidade visual da página operacional
+   Cor de fundo e acabamento, sem alterar regras, calendários ou banco. */
+body:has(.quadro-workflow) {
+  background:
+    radial-gradient(ellipse 850px 410px at 3% 17%, rgba(19,111,61,.19),transparent 76%),
+    radial-gradient(ellipse 750px 530px at 97% 48%, rgba(42,146,85,.13),transparent 78%),
+    linear-gradient(180deg,#deefe3 0%,#eaf3ed 30%,#f1f6f2 100%);
+  background-attachment:fixed;
+}
+body:has(.quadro-workflow) .app-shell {
+  background:transparent;
+}
+.page:has(.quadro-workflow) {
+  position:relative;
+  isolation:isolate;
+  max-width:1290px;
+  padding:25px 25px 130px;
+  gap:20px;
+}
+.page:has(.quadro-workflow)::before {
+  content:'';
+  position:absolute;
+  pointer-events:none;
+  z-index:-1;
+  top:0;
+  left:0;
+  right:0;
+  height:225px;
+  border-radius:0 0 28px 28px;
+  background:linear-gradient(150deg,rgba(12,110,56,.07),rgba(255,255,255,0));
+}
+.page:has(.quadro-workflow) .conf-head {
+  background:linear-gradient(115deg,#fff 55%,#eaf5ee 100%)!important;
+  border-color:#cee1d4;
+  box-shadow:0 12px 35px rgba(20,85,48,.09);
+}
+.page:has(.quadro-workflow) .refdate {
+  background:#fff!important;
+  border-color:#d2e2d7!important;
+  box-shadow:0 12px 34px rgba(21,78,44,.09)!important;
+}
+.page:has(.quadro-workflow) .monthly-calendar {
+  background:linear-gradient(160deg,#ffffff,#fcfefc 75%)!important;
+}
+.page:has(.quadro-workflow) .monthly-calendar__tile {
+  box-shadow:0 2px 9px rgba(28,72,43,.025)!important;
+}
+.page:has(.quadro-workflow) .monthly-calendar__day:not(.monthly-calendar__day--pending):not(.monthly-calendar__day--submitted):not(.monthly-calendar__day--draft):not(.monthly-calendar__day--today):not(.monthly-calendar__day--disabled) {
+  background:#f5faf6!important;
+}
+.page:has(.quadro-workflow) .quadro-workflow {
+  background:rgba(255,255,255,.96)!important;
+  box-shadow:0 7px 21px rgba(20,75,40,.055);
+}
+.page:has(.quadro-workflow) .summary--conference .summary-card {
+  box-shadow:0 11px 26px rgba(20,74,43,.08)!important;
+}
+.page:has(.quadro-workflow) .section {
+  background:#fff;
+  border:1px solid #d6e5db;
+  box-shadow:0 11px 32px rgba(18,71,36,.08);
+}
+.page:has(.quadro-workflow) .section__head {
+  background:linear-gradient(100deg,#eaf5ee,#ffffff 76%)!important;
+  border-bottom:1px solid #d8e7dd;
+}
+.page:has(.quadro-workflow) .quadro-history-collapse {
+  border-color:#d5e5db;
+  box-shadow:0 6px 22px rgba(20,75,40,.05);
+}
+.page:has(.quadro-workflow) .actions {
+  background:rgba(255,255,255,.975)!important;
+  backdrop-filter:blur(14px);
+  border-color:#c7decf!important;
+  box-shadow:0 -6px 28px rgba(15,78,37,.12)!important;
+}
+@media(max-width:760px) {
+  body:has(.quadro-workflow) {
+    background:linear-gradient(180deg,#dff0e4 0%,#edf5ef 33%,#f3f7f4 100%);
+    background-attachment:scroll;
+  }
+  .page:has(.quadro-workflow) {
+    padding:14px 12px 130px;
+    gap:14px;
+  }
+  .page:has(.quadro-workflow)::before { height:140px; }
+  .page:has(.quadro-workflow) .refdate,
+  .page:has(.quadro-workflow) .section { border-radius:15px; }
+}
+@media(prefers-reduced-motion:reduce) {
+  body:has(.quadro-workflow) { background-attachment:scroll; }
+}
