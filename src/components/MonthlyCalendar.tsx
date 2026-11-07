@@ -20,7 +20,6 @@ interface Props {
   disabled: boolean;
   onSelect: (date: string) => void;
   onMonthChange: (month: string) => void;
-  /** Botão de toggle (abrir/fechar) renderizado ao lado do título. */
   toggleSlot?: React.ReactNode;
 }
 
@@ -33,6 +32,10 @@ function monthLabel(month: string): string {
   }).replace(/^./, (char) => char.toUpperCase());
 }
 
+/**
+ * Calendário operacional: apresentação separada da lógica de elegibilidade.
+ * Os valores e permissões de seleção continuam vindo do domínio existente.
+ */
 export function MonthlyCalendar({
   month,
   today,
@@ -51,129 +54,144 @@ export function MonthlyCalendar({
   const percent = progress.eligible > 0 ? (progress.done / progress.eligible) * 100 : 0;
 
   return (
-    <section className="monthly-calendar" aria-label="Calendário mensal da conferência">
-      <div className="monthly-calendar__header">
-        <div className="monthly-calendar__summary">
-          <div>
-            <p className="monthly-calendar__eyebrow">Resumo do mês</p>
-            <h3 className="monthly-calendar__title">{monthLabel(month)}</h3>
-          </div>
-          {isCurrentMonth && (
-            <div className="monthly-calendar__stats" aria-label="Resumo das conferências">
-              <span><strong>{progress.done}</strong> concluídas</span>
-              <span><strong>{progress.pending}</strong> pendentes</span>
-              <span><strong>{progress.drafts}</strong> rascunho{progress.drafts === 1 ? '' : 's'}</span>
-            </div>
-          )}
+    <section className="hq-cal" aria-label="Calendário mensal da conferência">
+      <header className="hq-cal__top">
+        <div className="hq-cal__heading">
+          <p className="hq-cal__eyebrow">CONTROLE DE CONFERÊNCIAS</p>
+          <h3 className="hq-cal__month">{monthLabel(month)}</h3>
+          <p className="hq-cal__description">Acompanhe as conferências e selecione a data para preencher.</p>
         </div>
+        <div className="hq-cal__top-actions">
+          <nav className="hq-cal__month-nav" aria-label="Navegação entre meses">
+            <button
+              type="button"
+              aria-label="Mês anterior"
+              onClick={() => onMonthChange(shiftMonthIso(month, -1))}
+            >‹</button>
+            <span aria-live="polite">{monthLabel(month)}</span>
+            <button
+              type="button"
+              aria-label="Mês seguinte"
+              onClick={() => onMonthChange(shiftMonthIso(month, 1))}
+              disabled={isFutureMonth}
+            >›</button>
+          </nav>
+          {toggleSlot && <div className="hq-cal__toggle">{toggleSlot}</div>}
+        </div>
+      </header>
 
+      <div className="hq-cal__overview">
+        <div className="hq-cal__metrics" aria-label="Indicadores do mês">
+          <div className="hq-cal__metric hq-cal__metric--done">
+            <span className="hq-cal__metric-label"><i aria-hidden="true" />Concluídas</span>
+            <strong>{progress.done}</strong>
+          </div>
+          <div className="hq-cal__metric hq-cal__metric--pending">
+            <span className="hq-cal__metric-label"><i aria-hidden="true" />Pendentes</span>
+            <strong>{progress.pending}</strong>
+          </div>
+          <div className="hq-cal__metric hq-cal__metric--draft">
+            <span className="hq-cal__metric-label"><i aria-hidden="true" />Rascunhos</span>
+            <strong>{progress.drafts}</strong>
+          </div>
+          <div className="hq-cal__metric hq-cal__metric--eligible">
+            <span className="hq-cal__metric-label"><i aria-hidden="true" />Dias elegíveis</span>
+            <strong>{progress.eligible}</strong>
+          </div>
+        </div>
         {isCurrentMonth && (
-          <div className="monthly-calendar__progress" aria-label={`${progress.done} de ${progress.eligible} dias elegíveis concluídos`}>
-            <span className="monthly-calendar__progress-track" aria-hidden="true">
+          <div
+            className="hq-cal__progress"
+            aria-label={`${progress.done} de ${progress.eligible} dias elegíveis concluídos`}
+          >
+            <div className="hq-cal__progress-text">
+              <span>Progresso do mês</span>
+              <strong>{Math.round(percent)}%</strong>
+            </div>
+            <div
+              className="hq-cal__progress-bar"
+              role="progressbar"
+              aria-valuenow={progress.done}
+              aria-valuemin={0}
+              aria-valuemax={Math.max(progress.eligible, 1)}
+              aria-label="Conferências concluídas"
+            >
               <span style={{ width: `${percent}%` }} />
-            </span>
-            <span className="monthly-calendar__progress-text">{progress.done} de {progress.eligible} dias elegíveis</span>
+            </div>
+            <small>{progress.done} de {progress.eligible} dias elegíveis</small>
           </div>
         )}
-        <div className="monthly-calendar__tiles" aria-label="Indicadores do mês">
-          <div className="monthly-calendar__tile monthly-calendar__tile--done"><span>Concluídas</span><strong>{progress.done}</strong></div>
-          <div className="monthly-calendar__tile monthly-calendar__tile--pending"><span>Pendentes</span><strong>{progress.pending}</strong></div>
-          <div className="monthly-calendar__tile monthly-calendar__tile--draft"><span>Rascunhos</span><strong>{progress.drafts}</strong></div>
-          <div className="monthly-calendar__tile monthly-calendar__tile--eligible"><span>Dias elegíveis</span><strong>{progress.eligible}</strong></div>
-          <div className="monthly-calendar__tile-action">{toggleSlot}</div>
+      </div>
+
+      <div className="hq-cal__calendar">
+        <div className="hq-cal__calendar-heading">
+          <strong>Selecione o dia</strong>
+          <span>Os dias futuros ficam disponíveis conforme o calendário avança.</span>
         </div>
-      </div>
+        <div className="hq-cal__weekdays" aria-hidden="true">
+          {WEEKDAYS.map((day) => <span key={day}>{day}</span>)}
+        </div>
+        <div className="hq-cal__grid" role="group" aria-label={monthLabel(month)}>
+          {monthCalendarDates(month).map((date, index) => {
+            if (!date) return <span key={`empty-${index}`} className="hq-cal__empty" aria-hidden="true" />;
 
-      <nav className="monthly-calendar__nav" aria-label="Navegação de mês">
-        <button
-          type="button"
-          className="monthly-calendar__nav-button"
-          aria-label="Mês anterior"
-          onClick={() => onMonthChange(shiftMonthIso(month, -1))}
-        >
-          <span aria-hidden="true">‹</span>
-        </button>
-        <span aria-live="polite" className="monthly-calendar__nav-label">Selecionar data <small>{monthLabel(month)}</small></span>
-        <button
-          type="button"
-          className="monthly-calendar__nav-button"
-          aria-label="Mês seguinte"
-          onClick={() => onMonthChange(shiftMonthIso(month, 1))}
-          disabled={isFutureMonth}
-        >
-          <span aria-hidden="true">›</span>
-        </button>
-      </nav>
+            const info = byDate.get(date) ?? { date, status: 'MISSING' as const, pending: false, label: date };
+            const isToday = date === today;
+            const isFuture = date > today;
+            const isPastMonth = month < currentMonth;
+            const isOperationalPastDate = isPastMonth && isMonthlyRecordableDate(date, fromIsoDate(today));
+            const canSelect =
+              !disabled &&
+              !isFutureMonth &&
+              !isFuture &&
+              (isCurrentMonth || (isPastMonth && (info.status !== 'MISSING' || isOperationalPastDate)));
+            const state = isToday ? 'PRE_REGISTRATION' : info.status;
+            const tone = isToday
+              ? 'today'
+              : isFuture || isFutureMonth
+                ? 'disabled'
+                : CONFERENCE_STATUS_TONE[state];
+            const statusLabel = isToday ? 'hoje, pré-registro' : CONFERENCE_STATUS_WORD[state];
+            const visibleStatus =
+              isToday ? 'HOJE' :
+              isFuture || isFutureMonth ? '' :
+              info.status === 'SUBMITTED' ? 'ENVIADA' :
+              info.status === 'DRAFT' ? 'RASCUNHO' :
+              info.status === 'REOPENED' ? 'REABERTA' :
+              info.pending ? 'PENDENTE' : '';
 
-      <div className="monthly-calendar__weekdays" aria-hidden="true">
-        {WEEKDAYS.map((day) => <span key={day}>{day}</span>)}
-      </div>
-      <div className="monthly-calendar__grid" role="grid" aria-label={monthLabel(month)}>
-        {monthCalendarDates(month).map((date, index) => {
-          if (!date) return <span key={`empty-${index}`} className="monthly-calendar__empty" aria-hidden="true" />;
-          const info = byDate.get(date) ?? { date, status: 'MISSING' as const, pending: false, label: date };
-          const isToday = date === today;
-          const isFuture = date > today;
-          const isPastMonth = month < currentMonth;
-          const isOperationalPastDate = isPastMonth && isMonthlyRecordableDate(date, fromIsoDate(today));
-          const canSelect =
-            !disabled &&
-            !isFutureMonth &&
-            !isFuture &&
-            (isCurrentMonth || (isPastMonth && (info.status !== 'MISSING' || isOperationalPastDate)));
-          const state = isToday ? 'PRE_REGISTRATION' : info.status;
-          const tone = isToday
-            ? 'today'
-            : isFuture || isFutureMonth
-              ? 'disabled'
-              : CONFERENCE_STATUS_TONE[state];
-          const statusLabel = isToday ? 'hoje, pré-registro' : CONFERENCE_STATUS_WORD[state];
-          return (
-            <button
-              key={date}
-              type="button"
-              data-date={date}
-              value={date}
-              className={[
-                'monthly-calendar__day',
-                `monthly-calendar__day--${tone}`,
-                info.pending ? 'monthly-calendar__day--pending' : '',
-                isToday ? 'monthly-calendar__day--today' : '',
-                date === selected ? 'monthly-calendar__day--selected' : '',
-                !canSelect ? 'monthly-calendar__day--disabled' : '',
-              ].filter(Boolean).join(' ')}
-              aria-label={isToday ? `${Number(date.slice(8))} de ${fromIsoDate(date).toLocaleDateString('pt-BR', { month: 'long', year: 'numeric' })}, ${statusLabel}` : `Conferência de ${formatLongBrDate(date)}`}
-              title={`${Number(date.slice(8))} de ${fromIsoDate(date).toLocaleDateString('pt-BR', { month: 'long', year: 'numeric' })}, ${statusLabel}`}
-              aria-current={date === selected ? 'date' : undefined}
-              disabled={!canSelect}
-              onClick={() => onSelect(date)}
-            >
-              <span className="monthly-calendar__number">{Number(date.slice(8))}</span>
-              <span className="monthly-calendar__day-detail" aria-hidden="true">
-                {isToday ? 'Hoje' : isFuture || isFutureMonth ? '' : info.status === 'SUBMITTED' ? '✓ Enviada' : info.status === 'DRAFT' ? 'Rascunho' : info.status === 'REOPENED' ? 'Reaberta' : info.pending ? 'Pendente' : ''}
-              </span>
-            </button>
-          );
-        })}
-      </div>
-
-      <div className="monthly-calendar__legend" aria-label="Legenda dos status">
-        <span className="monthly-calendar__legend-item monthly-calendar__legend-item--submitted">
-          <span className="monthly-calendar__legend-dot" aria-hidden="true" />
-          Concluída
-        </span>
-        <span className="monthly-calendar__legend-item monthly-calendar__legend-item--pending">
-          <span className="monthly-calendar__legend-dot" aria-hidden="true" />
-          Pendente
-        </span>
-        <span className="monthly-calendar__legend-item monthly-calendar__legend-item--draft">
-          <span className="monthly-calendar__legend-dot" aria-hidden="true" />
-          Rascunho
-        </span>
-        <span className="monthly-calendar__legend-item monthly-calendar__legend-item--today">
-          <span className="monthly-calendar__legend-dot" aria-hidden="true" />
-          Hoje
-        </span>
+            return (
+              <button
+                key={date}
+                type="button"
+                data-date={date}
+                value={date}
+                className={[
+                  'hq-cal__day',
+                  `hq-cal__day--${tone}`,
+                  info.pending ? 'hq-cal__day--pending' : '',
+                  isToday ? 'hq-cal__day--today' : '',
+                  date === selected ? 'hq-cal__day--selected' : '',
+                  !canSelect ? 'hq-cal__day--disabled' : '',
+                ].filter(Boolean).join(' ')}
+                aria-label={`${formatLongBrDate(date)}, ${statusLabel}`}
+                aria-pressed={date === selected}
+                title={`${formatLongBrDate(date)}, ${statusLabel}`}
+                disabled={!canSelect}
+                onClick={() => onSelect(date)}
+              >
+                <span className="hq-cal__day-number">{Number(date.slice(8))}</span>
+                {visibleStatus && <span className="hq-cal__day-status">{visibleStatus}</span>}
+              </button>
+            );
+          })}
+        </div>
+        <div className="hq-cal__legend" aria-label="Legenda do calendário">
+          <span><i className="hq-cal__legend-dot hq-cal__legend-dot--done" /> Enviada</span>
+          <span><i className="hq-cal__legend-dot hq-cal__legend-dot--pending" /> Pendente</span>
+          <span><i className="hq-cal__legend-dot hq-cal__legend-dot--draft" /> Rascunho</span>
+          <span><i className="hq-cal__legend-dot hq-cal__legend-dot--today" /> Hoje</span>
+        </div>
       </div>
     </section>
   );
