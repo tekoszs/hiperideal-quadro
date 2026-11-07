@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client';
 import App from '@/App';
 import '@/styles/global.css';
 import '@/styles/visual-refresh.css';
+import '@/styles/calendar-pro.css';
 
 const container = document.getElementById('root');
 if (!container) {
