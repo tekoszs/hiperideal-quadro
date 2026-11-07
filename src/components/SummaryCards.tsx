@@ -18,6 +18,7 @@ export function SummaryCards({ summary }: Props) {
       <article
         className={`summary-card ${summary.totalAbsences > 0 ? 'summary-card--danger' : 'summary-card--neutral'}`}
       >
+        <span className="summary-card__icon summary-card__icon--absence" aria-hidden="true">!</span>
         <p className="summary-card__label">Faltas</p>
         <p className="summary-card__value">{summary.totalAbsences}</p>
         {summary.reasonsPending > 0 ? (
@@ -28,12 +29,14 @@ export function SummaryCards({ summary }: Props) {
       </article>
 
       <article className="summary-card summary-card--neutral">
+        <span className="summary-card__icon summary-card__icon--dayoff" aria-hidden="true">◷</span>
         <p className="summary-card__label">Folgas</p>
         <p className="summary-card__value">{summary.totalDayOffs}</p>
         <p className="summary-card__note">Não contam como falta</p>
       </article>
 
       <article className="summary-card summary-card--neutral">
+        <span className="summary-card__icon summary-card__icon--positions" aria-hidden="true">▦</span>
         <p className="summary-card__label">Funções impactadas</p>
         <p className="summary-card__value">{summary.impactedPositions}</p>
         <p className="summary-card__note">Com falta ou folga</p>
