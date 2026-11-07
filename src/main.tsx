@@ -15,3 +15,5 @@ createRoot(container).render(
     <App />
   </StrictMode>,
 );
+
+import '@/styles/login-clean.css';

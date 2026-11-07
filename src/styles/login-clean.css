@@ -1,0 +1,129 @@
+/* Quadro Hiperideal | acesso institucional v2
+   Uma única arte, formulário sem barra de rolagem interna.
+   Somente apresentação: login e permissões seguem intactos. */
+.login {
+  display:grid!important;
+  grid-template-columns:minmax(0,1.04fr) minmax(445px,.96fr)!important;
+  align-items:stretch!important;
+  min-height:100svh!important;
+  height:auto!important;
+  overflow:visible!important;
+  background:#f1f6f2!important;
+}
+.login__hero {
+  position:relative!important;
+  min-height:100svh!important;
+  height:auto!important;
+  width:100%!important;
+  flex:none!important;
+  overflow:hidden!important;
+  isolation:isolate;
+  background:
+    radial-gradient(circle at 16% 6%,#18844c,#06502c 65%,#04351f)!important;
+}
+.login__hero::before {
+  content:''!important;
+  position:absolute!important;
+  inset:0!important;
+  background:
+    linear-gradient(0deg,rgba(1,34,19,.78) 0%,rgba(4,59,33,.14) 40%,rgba(5,57,33,.10)),
+    url('/images/hiperideal-quadro.png') center 41% / contain no-repeat!important;
+  opacity:1!important;
+  filter:none!important;
+  transform:none!important;
+  border:0!important;
+  box-shadow:none!important;
+  border-radius:0!important;
+}
+.login__hero::after { content:none!important; display:none!important; }
+.login__hero-caption {
+  position:absolute!important;
+  left:clamp(28px,4.5vw,66px)!important;
+  right:clamp(28px,4.5vw,66px)!important;
+  bottom:clamp(27px,4vw,54px)!important;
+  z-index:2;
+  gap:8px!important;
+  padding:0!important;
+  background:none!important;
+}
+.login__hero-caption::before {
+  content:''; display:block; width:38px; height:3px; margin-bottom:8px;
+  background:#7bdc9b; border-radius:999px;
+}
+.login__hero-caption span { font-size:10px!important; color:#b8e9c9!important; letter-spacing:.18em!important; }
+.login__hero-caption strong {
+  max-width:450px!important;
+  font-size:clamp(22px,2.35vw,32px)!important;
+  line-height:1.15!important;
+  font-weight:850!important;
+  letter-spacing:-.035em!important;
+}
+.login__hero-caption p { font-size:12px!important; color:#d3e9d9!important; }
+.login__card {
+  width:min(100% - 56px,510px)!important;
+  min-width:0;
+  flex:none!important;
+  align-self:center!important;
+  justify-self:center!important;
+  max-height:none!important;
+  overflow:visible!important;
+  margin:25px auto!important;
+  padding:clamp(22px,2.3vw,32px)!important;
+  border:1px solid #dce8de!important;
+  border-radius:21px!important;
+  background:#fff!important;
+  box-shadow:0 16px 55px rgba(8,56,30,.105)!important;
+  gap:13px!important;
+}
+.login__brand { margin-bottom:3px!important; text-align:left!important; }
+.login__brand-eyebrow { letter-spacing:.13em!important; font-size:10px!important; }
+.login__title { margin-top:6px!important; font-size:30px!important; letter-spacing:.065em!important; }
+.login__subtitle { margin-top:5px!important; font-size:14px!important; }
+.login__brand-description { margin-top:4px!important; font-size:11px!important; }
+.login__modes { margin:1px 0 3px!important; border-radius:12px!important; padding:4px!important; }
+.login__mode { min-height:39px!important; }
+.login__card .field__label { margin-bottom:4px!important; }
+.login__card .field__input { min-height:43px!important; }
+.login__card .store-picker { gap:6px!important; margin:0!important; }
+.login__card .store-picker__list {
+  max-height:154px!important;
+  border-radius:11px!important;
+  overscroll-behavior:contain;
+}
+.login__card .store-picker__option { min-height:38px!important; padding:5px 10px!important; }
+.login__card .store-picker__code { min-height:24px!important; }
+.login__card .store-picker__name { font-size:12px!important; }
+.login__card .store-picker .field__hint { margin-top:3px!important; }
+.login__card .field { margin:0!important; }
+.login__submit { margin-top:2px!important; min-height:47px!important; }
+.login__hint { margin:0!important; line-height:1.4!important; font-size:10px!important; }
+.login__footer { margin-top:0!important; padding-top:11px!important; }
+@media(max-width:1050px) {
+  .login { grid-template-columns:minmax(0,.9fr) minmax(400px,1.1fr)!important; }
+  .login__card { width:calc(100% - 32px)!important; padding:22px!important; }
+  .login__hero-caption strong { font-size:24px!important; }
+}
+@media(max-width:760px) {
+  .login { display:flex!important; flex-direction:column!important; min-height:100svh!important; }
+  .login__hero { min-height:142px!important; height:142px!important; flex:0 0 142px!important; }
+  .login__hero::before {
+    background:
+      linear-gradient(90deg,rgba(1,47,26,.3),rgba(4,72,38,.14)),
+      url('/images/hiperideal-quadro.png') center 45% / contain no-repeat!important;
+  }
+  .login__hero-caption { display:none!important; }
+  .login__card {
+    position:relative!important; z-index:3;
+    width:calc(100% - 28px)!important; max-width:530px!important;
+    margin:-13px auto 22px!important;
+    border-radius:18px!important;
+    padding:22px 18px!important;
+  }
+  .login__card .store-picker__list { max-height:178px!important; }
+  .login__card .store-picker__option { min-height:42px!important; }
+}
+@media(max-width:380px) {
+  .login__hero { height:112px!important; min-height:112px!important; flex-basis:112px!important; }
+  .login__card { padding:19px 15px!important; gap:12px!important; }
+  .login__title { font-size:26px!important; }
+}
