@@ -93,7 +93,7 @@ export function MonthlyCalendar({
         >
           <span aria-hidden="true">‹</span>
         </button>
-        <span aria-live="polite">{monthLabel(month)}</span>
+        <span aria-live="polite" className="monthly-calendar__nav-label">Selecionar data <small>{monthLabel(month)}</small></span>
         <button
           type="button"
           className="monthly-calendar__nav-button"
@@ -149,9 +149,8 @@ export function MonthlyCalendar({
               onClick={() => onSelect(date)}
             >
               <span className="monthly-calendar__number">{Number(date.slice(8))}</span>
-              {isToday && <span className="monthly-calendar__today-label">Hoje</span>}
-              <span className="monthly-calendar__marker" aria-hidden="true">
-                {info.status === 'SUBMITTED' ? '✓' : '●'}
+              <span className="monthly-calendar__day-detail" aria-hidden="true">
+                {isToday ? 'Hoje' : isFuture || isFutureMonth ? '' : info.status === 'SUBMITTED' ? '✓ Enviada' : info.status === 'DRAFT' ? 'Rascunho' : info.status === 'REOPENED' ? 'Reaberta' : info.pending ? 'Pendente' : ''}
               </span>
             </button>
           );
