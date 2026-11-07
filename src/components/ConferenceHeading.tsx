@@ -43,11 +43,12 @@ export function ConferenceHeading({ referenceDate, state, submittedAt }: Props) 
     <header className={`conf-head${preRegistro ? ' conf-head--pre' : ''}`}>
       <div className="conf-head__top">
         <div className="conf-head__identity">
+          <p className="conf-head__eyebrow">
+            {preRegistro ? 'PRÉ-REGISTRO DE HOJE' : `CONFERÊNCIA DE ${weekdayName(referenceDate).toUpperCase()}`}
+          </p>
           <h2 className="conf-head__title">
-            {preRegistro ? 'Pré-registro de hoje' : 'Conferência de'}{' '}
             <span className="conf-head__date">{formatBrDate(referenceDate)}</span>
           </h2>
-          <p className="conf-head__weekday">{weekdayName(referenceDate)}</p>
         </div>
 
         <span
@@ -55,6 +56,7 @@ export function ConferenceHeading({ referenceDate, state, submittedAt }: Props) 
           /* O selo repete o que a frase abaixo já diz por extenso: quem não
              distingue as cores continua tendo a informação em texto. */
         >
+          <span className="conf-status__dot" aria-hidden="true" />
           {CONFERENCE_STATUS_WORD[state]}
         </span>
       </div>
