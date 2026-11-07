@@ -57,7 +57,7 @@ export function StorePicker({ value, onChange, disabled }: Props) {
             type="search"
             value={query}
             disabled={disabled}
-            placeholder="Código ou nome — ex.: 307 ou LEPARC"
+            placeholder="Busque pelo nome ou código da filial"
             autoComplete="off"
             onChange={(event) => setQuery(event.target.value)}
           />
@@ -78,6 +78,7 @@ export function StorePicker({ value, onChange, disabled }: Props) {
                   >
                     <span className="store-picker__code">{store.code}</span>
                     <span className="store-picker__name">{store.name}</span>
+                    <span className="store-picker__option-arrow" aria-hidden="true">›</span>
                     {store.fullName && store.fullName !== store.name && (
                       <span className="store-picker__full">{store.fullName}</span>
                     )}
