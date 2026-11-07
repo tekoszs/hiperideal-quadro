@@ -41,8 +41,11 @@ export function AppHeader({ profile, store, onSignOut, showSignOut }: Props) {
           <div className="quadro-banner__account-details">
             {store !== undefined && (
               <div className="quadro-banner__store">
-                <strong>{store ? store.name : 'Loja não identificada'}</strong>
-                {store && <span>Código {store.code}</span>}
+                <span className="quadro-banner__store-icon" aria-hidden="true">⌂</span>
+                <span className="quadro-banner__store-text">
+                  <strong>{store ? `${store.name} · FILIAL ${store.code}` : 'Loja não identificada'}</strong>
+                  <span>Identificação da unidade</span>
+                </span>
               </div>
             )}
             {profile && (
